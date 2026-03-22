@@ -249,8 +249,9 @@ body.night-mode .caregiver-section{color:#555;border-bottom-color:#2a2a2a;}
 .bottom-section{display:flex;gap:30px;flex:1;overflow:hidden;}
 .schedule-column{flex:2;overflow-y:auto;}
 .suggestions-column{flex:1;overflow-y:auto;}
-.reminders-title{font-size:42px;font-weight:600;margin-bottom:25px;opacity:.9;}
-.reminder-item{font-size:36px;padding:18px 24px;margin-bottom:15px;border-radius:10px;}
+.reminders-title{font-size:var(--rt-size,42px);font-weight:600;margin-bottom:25px;opacity:.9;}
+.reminder-item{font-size:var(--ri-size,36px);padding:18px 24px;margin-bottom:15px;border-radius:10px;}
+body.large-print{--rt-size:45px;--ri-size:55px;}
 body.day-mode .reminder-item{background:#c5cdb0;}
 body.evening-mode .reminder-item{background:#363636;}
 body.night-mode .reminder-item{background:#1a1a1a;}
@@ -354,6 +355,13 @@ body.night-mode #cfg-btn{background:rgba(30,30,30,.7);color:#444;opacity:.15;}
       <div class="cf"><label>Evening</label><input id="me" type="time"/></div>
     </div>
   </div>
+  <div class="cs"><div class="cst">Text size</div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button id="ts-reg" onclick="setSize('regular')" style="flex:1;padding:8px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:600;letter-spacing:.5px;cursor:pointer;border:2px solid #B8D4E0;background:#fff;color:#2D6B8A;transition:all .15s;">Regular</button>
+      <button id="ts-lg" onclick="setSize('large')" style="flex:1;padding:8px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:600;letter-spacing:.5px;cursor:pointer;border:2px solid #B8D4E0;background:#fff;color:#2D6B8A;transition:all .15s;">Large Print</button>
+    </div>
+    <div style="font-size:10px;color:#7A9BAD;margin-top:6px;line-height:1.5;">Large Print increases the schedule and reminder text for easier reading at a distance.</div>
+  </div>
   <div class="cs"><div class="cst">Appointments</div>
     <div id="pa"></div>
     <button class="cadd" onclick="addA()">+ Add appointment</button>
@@ -366,9 +374,22 @@ const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const SEED={displayName:"${ea(name)}",zip:"${ea(zip)}",caregivers:[${cgInit}],nightCaregiver:"${ea(d.nightCaregiver||'')}",medMorning:"${d.medMorning}",medAfternoon:"${d.medAfternoon}",medEvening:"${d.medEvening}",appts:[${apInit}]};
 let C;try{const s=localStorage.getItem('luv_cfg');C=s?JSON.parse(s):JSON.parse(JSON.stringify(SEED));}catch(e){C=JSON.parse(JSON.stringify(SEED));}
 const HOLS=[{m:1,d:1,t:'Happy New Year!',e:'🎊',c:'#E8A840'},{m:1,d:20,t:'Happy MLK Jr. Day!',e:'✊🏾',c:'#800020'},{m:2,d:14,t:"Happy Valentine's Day!",e:'❤️',c:'#E31B23'},{m:3,d:17,t:"Happy St. Patrick's Day!",e:'🍀',c:'#135425'},{m:4,d:20,t:'Happy Easter!',e:'🐣',c:'#7A3870'},{m:5,d:11,t:"Happy Mother's Day!",e:'💐',c:'#D4537E'},{m:6,d:15,t:"Happy Father's Day!",e:'👔',c:'#2D6B8A'},{m:6,d:19,t:'Happy Juneteenth!',e:'🙌🏾',c:'#008000'},{m:7,d:4,t:'Happy Independence Day!',e:'🎆',c:'#B22234'},{m:10,d:31,t:'Happy Halloween!',e:'🎃',c:'#E8A840'},{m:11,d:27,t:'Happy Thanksgiving!',e:'🦃',c:'#7A4A2A'},{m:12,d:25,t:'Merry Christmas!',e:'🎄',c:'#165B33'}];
+function setSize(s){
+  C.textSize=s;
+  document.body.classList.toggle('large-print',s==='large');
+  const reg=document.getElementById('ts-reg');
+  const lg=document.getElementById('ts-lg');
+  if(reg&&lg){
+    const on='background:#2D6B8A;color:#F0F7FA;border-color:#2D6B8A;';
+    const off='background:#fff;color:#2D6B8A;border-color:#B8D4E0;';
+    reg.style.cssText=reg.style.cssText.replace(/background:[^;]+;color:[^;]+;border-color:[^;]+;/,'')+( s==='regular'?on:off);
+    lg.style.cssText=lg.style.cssText.replace(/background:[^;]+;color:[^;]+;border-color:[^;]+;/,'')+( s==='large'?on:off);
+  }
+}
 function openP(){pop();document.getElementById('cfg-panel').classList.add('open');}
 function closeP(){document.getElementById('cfg-panel').classList.remove('open');}
 function pop(){
+  setSize(C.textSize||'regular');
   document.getElementById('pn').value=C.displayName||'';
   document.getElementById('pz').value=C.zip||'';
   [0,1,2,3,4,5,6].forEach(i=>{const el=document.getElementById('c'+i);if(el)el.value=(C.caregivers&&C.caregivers[i])||'';});
@@ -410,6 +431,7 @@ function saveP(){
   C.medMorning=document.getElementById('ma').value||'08:00';
   C.medAfternoon=document.getElementById('mp').value||'13:00';
   C.medEvening=document.getElementById('me').value||'18:00';
+  // textSize is set live via setSize(), already in C
   const n=document.querySelectorAll('.ca').length;
   C.appts=Array.from({length:n},(_,i)=>({date:(document.getElementById('ad'+i)||{}).value||'',time:(document.getElementById('at'+i)||{}).value||'',text:(document.getElementById('ax'+i)||{}).value||''})).filter(a=>a.date&&a.text);
   try{localStorage.setItem('luv_cfg',JSON.stringify(C));}catch(e){}
@@ -430,7 +452,9 @@ function chkR(){if(AF)return;const ct=String(new Date().getHours()).padStart(2,'
 function chime(){try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.setValueAtTime(800,ac.currentTime);o.frequency.exponentialRampToValueAtTime(400,ac.currentTime+0.3);g.gain.setValueAtTime(0.3,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ac.currentTime+0.3);o.start(ac.currentTime);o.stop(ac.currentTime+0.3);}catch(e){}}
 async function showF(r){AF=r;const ov=document.getElementById('fo');document.getElementById('fi').textContent=r.icon;document.getElementById('ft').textContent=f12(r.time);document.getElementById('fx').textContent=r.text;ov.classList.add('active');chime();setTimeout(()=>{ov.classList.remove('active');AF=null;dispR();},FD*60*1000);}
 function chkRefresh(){const now=new Date(),h=now.getHours(),m=now.getMinutes();if(h===0&&m===0&&!AF){location.reload();return;}if(h>=8&&h<22&&Date.now()-LR>=15*60*1000&&!AF){LR=Date.now();location.reload();}}
-function init(){uTime();updW();genR();dispCG();setInterval(uTime,1000);setInterval(chkRefresh,60000);setInterval(updW,30*60*1000);setInterval(()=>{if(new Date().getHours()===0&&new Date().getMinutes()===0)genR();},60000);}
+function init(){uTime();updW();genR();dispCG();
+  document.body.classList.toggle('large-print',(C.textSize||'regular')==='large');
+  setInterval(uTime,1000);setInterval(chkRefresh,60000);setInterval(updW,30*60*1000);setInterval(()=>{if(new Date().getHours()===0&&new Date().getMinutes()===0)genR();},60000);}
 window.addEventListener('load',init);
 <\/script></body></html>`;
 }
