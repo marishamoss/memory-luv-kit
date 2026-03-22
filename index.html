@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Memory LUV Kit — Configurator | LUVNOTES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --brand:#4A1942;
+  --brand-light:#7A3870;
+  --gold:#C9A05A;
+  --cream:#F7F2EA;
+  --cream-dark:#EDE5D8;
+  --rule:#D5C9B8;
+  --ink:#1A1A1A;
+  --ink-light:#4A4A4A;
+  --taupe:#8B7355;
+}
+body{font-family:'Poppins',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+header{background:var(--brand);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;}
+.wordmark{font-family:'Lora',serif;font-size:26px;color:#F7F2EA;letter-spacing:2px;}
+.wordmark span{color:var(--gold);}
+.header-sub{font-size:11px;color:rgba(247,242,234,0.6);letter-spacing:1px;text-transform:uppercase;}
+main{flex:1;display:flex;justify-content:center;align-items:flex-start;padding:40px 20px 60px;}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 32px rgba(74,25,66,0.10);padding:40px 44px;width:100%;max-width:580px;}
+.progress{display:flex;gap:6px;margin-bottom:32px;}
+.pdot{flex:1;height:3px;border-radius:2px;background:var(--rule);transition:background .3s;}
+.pdot.done{background:var(--brand);}
+.pdot.active{background:var(--gold);}
+.step-label{font-size:11px;color:var(--taupe);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.step-title{font-family:'Lora',serif;font-size:24px;color:var(--brand);margin-bottom:6px;}
+.step-desc{font-size:13px;color:var(--ink-light);line-height:1.6;margin-bottom:28px;}
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;}
+.field .hint{font-size:11px;color:var(--taupe);margin-top:4px;}
+input[type=text],input[type=date],input[type=time]{
+  width:100%;padding:9px 12px;border:1.5px solid var(--rule);border-radius:8px;
+  font-family:'Poppins',sans-serif;font-size:14px;background:#fff;color:var(--ink);
+  transition:border-color .2s;
+}
+input:focus{outline:none;border-color:var(--brand-light);box-shadow:0 0 0 3px rgba(122,56,112,.1);}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.day-label{font-size:11px;color:var(--taupe);text-align:center;margin-bottom:4px;}
+.appt-block{background:var(--cream);border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid var(--rule);}
+.appt-num{font-size:11px;font-weight:500;color:var(--brand);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--rule);}
+.btn{padding:10px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--rule);background:transparent;color:var(--ink-light);transition:all .15s;}
+.btn:hover{background:var(--cream);border-color:var(--taupe);}
+.btn-primary{background:var(--brand);color:#fff;border-color:var(--brand);}
+.btn-primary:hover{background:var(--brand-light);border-color:var(--brand-light);}
+.btn-download{background:var(--gold);color:#3a2800;border-color:var(--gold);font-size:15px;padding:13px 32px;border-radius:10px;}
+.btn-download:hover{opacity:.88;}
+.done-card{background:var(--cream);border-radius:12px;padding:28px;text-align:center;margin-bottom:24px;border:1px solid var(--rule);}
+.done-card h3{font-family:'Lora',serif;font-size:20px;color:var(--brand);margin:12px 0 8px;}
+.done-card p{font-size:13px;color:var(--ink-light);line-height:1.7;}
+.instructions{background:#fff;border-radius:10px;border:1px solid var(--rule);padding:16px 20px;margin-bottom:16px;}
+.instructions h4{font-size:11px;font-weight:500;color:var(--brand);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.instructions ol{padding-left:18px;}
+.instructions li{font-size:13px;color:var(--ink-light);line-height:1.85;}
+.instructions li strong{color:var(--ink);font-weight:500;}
+.info-box{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;color:var(--ink-light);line-height:1.6;margin-top:8px;}
+footer{background:var(--brand);padding:16px 24px;text-align:center;}
+footer p{font-size:11px;color:rgba(247,242,234,0.5);letter-spacing:.5px;}
+footer span{color:var(--gold);}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="wordmark">LUV<span>NOTES</span></div>
+    <div class="header-sub">Memory LUV Kit · Configurator</div>
+  </div>
+  <div style="font-family:'Lora',serif;font-size:13px;color:rgba(247,242,234,0.5);">RMS Omni Media</div>
+</header>
+
+<main>
+  <div class="card" id="app"></div>
+</main>
+
+<footer>
+  <p>A <span>LUVNOTES</span> product by RMS Omni Media &nbsp;·&nbsp; For the person you love.</p>
+</footer>
+
+<script>
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const TOTAL=5;
+let step=1;
+let data={
+  displayName:'',zip:'',
+  caregivers:['','','','','','',''],
+  nightCaregiver:'',
+  medMorning:'08:00',medAfternoon:'13:00',medEvening:'18:00',
+  appts:[{date:'',time:'',text:''},{date:'',time:'',text:''},{date:'',time:'',text:''}]
+};
+
+function generateDisplayHTML(d){
+  const name=d.displayName||'Your Loved One';
+  const zip=d.zip||'20904';
+  const cgArr=DAYS.map((day,i)=>`{ dayOfWeek: ${i}, name: "${(d.caregivers[i]||'Caregiver').replace(/"/g,'')}" }`).join(',\n                ');
+  const nightArr=DAYS.map((_,i)=>`{ dayOfWeek: ${i}, name: "${(d.nightCaregiver||'Night Caregiver').replace(/"/g,'')}" }`).join(',\n                ');
+  const apptLines=d.appts.filter(a=>a.date&&a.text).map(a=>`{ date: "${a.date}", time: "${a.time||'09:00'}", text: "${a.text.replace(/"/g,"'")}", featured: true, icon: "📋" }`).join(',\n                ');
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Memory LUV Kit — ${name.replace(/</g,'&lt;')}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;transition:background-color 0.5s ease,color 0.5s ease;overflow:hidden;height:100vh;display:flex;flex-direction:column;}
+body.day-mode{background-color:#d4dbc1;color:#1a1a1a;}
+body.evening-mode{background-color:#2a2a2a;color:#e8e8e8;}
+body.night-mode{background-color:#0a0a0a;color:#666666;}
+.main-content{flex:1;display:flex;flex-direction:column;padding:40px;}
+.time-section{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:3px solid;min-height:40vh;flex:0 0 40%;}
+body.day-mode .time-section{border-bottom-color:#b5bd9a;}
+body.evening-mode .time-section,body.night-mode .time-section{border-bottom-color:#404040;}
+body.night-mode .time-section{border-bottom-color:#2a2a2a;}
+.datetime-container{flex:1;}
+.time{font-size:200px;font-weight:300;line-height:1;letter-spacing:-2px;}
+.date{font-size:90px;font-weight:400;margin-top:15px;}
+.weather-container{text-align:right;display:flex;flex-direction:column;align-items:flex-end;}
+.weather-temp{font-size:96px;font-weight:300;display:flex;align-items:center;gap:20px;}
+.weather-icon{font-size:100px;}
+.weather-description{font-size:40px;margin-top:10px;opacity:0.8;}
+.reminders-section{flex:1;display:flex;flex-direction:column;overflow-y:auto;}
+.caregiver-section{text-align:center;font-size:65px;font-weight:500;padding-top:17px;padding-bottom:20px;margin-bottom:20px;border-bottom:2px solid;}
+body.day-mode .caregiver-section{color:#321d6b;border-bottom-color:#b5bd9a;}
+body.evening-mode .caregiver-section{color:#d4dbc1;border-bottom-color:#404040;}
+body.night-mode .caregiver-section{color:#666666;border-bottom-color:#2a2a2a;}
+.bottom-section{display:flex;gap:30px;flex:1;overflow:hidden;}
+.schedule-column{flex:2;overflow-y:auto;}
+.suggestions-column{flex:1;overflow-y:auto;}
+.reminders-title{font-size:42px;font-weight:600;margin-bottom:25px;opacity:0.9;}
+.reminder-item{font-size:36px;padding:18px 24px;margin-bottom:15px;border-radius:10px;transition:all 0.3s ease;}
+body.day-mode .reminder-item{background-color:#c5cdb0;}
+body.evening-mode .reminder-item{background-color:#363636;}
+body.night-mode .reminder-item{background-color:#1a1a1a;}
+.reminder-item.past-event{opacity:0.6;}
+.reminder-time{font-weight:600;margin-right:15px;}
+.featured-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:none;justify-content:center;align-items:center;z-index:1000;}
+.featured-overlay.active{display:flex;}
+body.day-mode .featured-overlay{background-color:rgba(212,219,193,0.98);}
+body.evening-mode .featured-overlay{background-color:rgba(42,42,42,0.98);}
+body.night-mode .featured-overlay{background-color:rgba(10,10,10,0.98);}
+.featured-content{text-align:center;padding:60px;border-radius:20px;max-width:80%;}
+body.day-mode .featured-content{background-color:#e8efd9;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+body.evening-mode .featured-content,body.night-mode .featured-content{background-color:#333;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.featured-icon{font-size:120px;margin-bottom:30px;}
+.featured-time{font-size:72px;font-weight:600;margin-bottom:20px;}
+.featured-text{font-size:64px;font-weight:500;line-height:1.3;}
+.luvnotes-badge{position:fixed;bottom:12px;right:18px;font-size:13px;opacity:0.3;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<div class="main-content">
+  <div class="time-section">
+    <div class="datetime-container">
+      <div class="time" id="time">--:--</div>
+      <div class="date" id="date">Loading...</div>
+    </div>
+    <div class="weather-container">
+      <div class="weather-temp">
+        <span class="weather-icon" id="weatherIcon">☀️</span>
+        <span id="temperature">--°</span>
+      </div>
+      <div class="weather-description" id="weatherDesc">Loading weather...</div>
+    </div>
+  </div>
+  <div class="reminders-section">
+    <div class="caregiver-section" id="caregiverName"></div>
+    <div class="bottom-section">
+      <div class="schedule-column">
+        <div class="reminders-title">Today's Schedule</div>
+        <div id="remindersList"></div>
+      </div>
+      <div class="suggestions-column">
+        <div class="reminders-title">For Today</div>
+        <div id="suggestionsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="featured-overlay" id="featuredOverlay">
+  <div class="featured-content">
+    <div class="featured-icon" id="featuredIcon">⏰</div>
+    <div class="featured-time" id="featuredTime"></div>
+    <div class="featured-text" id="featuredText"></div>
+  </div>
+</div>
+<div class="luvnotes-badge">LUVNOTES</div>
+<script>
+const WEEKLY_CAREGIVERS=[${cgArr}];
+const NIGHT_CAREGIVERS=[${nightArr}];
+const SUBSTITUTE_CAREGIVERS=[];
+const SUBSTITUTE_NIGHT_CAREGIVERS=[];
+const SPECIFIC_DATE_EVENTS=[${apptLines}];
+const WEEKLY_EVENTS=[{dayOfWeek:0,time:"10:30",text:"Sunday morning",featured:false,icon:"☀️"}];
+const DAILY_REMINDERS=[
+  {time:"${d.medMorning}",text:"Morning medication",featured:true,icon:"💊"},
+  {time:"${d.medAfternoon}",text:"Afternoon medication",featured:true,icon:"💊"},
+  {time:"${d.medEvening}",text:"Evening medication",featured:true,icon:"💊"}
+];
+const RECURRING_REMINDERS=[
+  {interval:60,startTime:"11:00",endTime:"17:00",text:"Take a drink of water",featured:true,icon:"💧"},
+  {interval:135,startTime:"12:45",endTime:"17:45",text:"Move your arms and legs",featured:true,icon:"🤸"}
+];
+const HOLIDAYS=[
+  {month:1,day:1,text:"Happy New Year!",emoji:"🎊",color:"#FFD700"},
+  {month:1,day:20,text:"Happy MLK Jr. Day!",emoji:"✊🏾",color:"#800020"},
+  {month:2,day:14,text:"Happy Valentine's Day!",emoji:"❤️",color:"#E31B23"},
+  {month:3,day:17,text:"Happy St. Patrick's Day!",emoji:"🍀",color:"#135425"},
+  {month:5,day:11,text:"Happy Mother's Day!",emoji:"💐",color:"#FF69B4"},
+  {month:6,day:15,text:"Happy Father's Day!",emoji:"👔",color:"#1E3A8A"},
+  {month:6,day:19,text:"Happy Juneteenth!",emoji:"🙌🏾",color:"#008000"},
+  {month:7,day:4,text:"Happy Independence Day!",emoji:"🎆",color:"#B22234"},
+  {month:10,day:31,text:"Happy Halloween!",emoji:"🎃",color:"#FF6600"},
+  {month:11,day:27,text:"Happy Thanksgiving!",emoji:"🦃",color:"#D2691E"},
+  {month:12,day:25,text:"Merry Christmas!",emoji:"🎄",color:"#165B33"}
+];
+const DAILY_SUGGESTIONS=[{text:"Remember to breathe deeply",icon:"🧘"}];
+const WEEKLY_SUGGESTIONS=[{dayOfWeek:1,text:"Call a friend?",icon:"💬"},{dayOfWeek:4,text:"Call a friend?",icon:"💬"}];
+const SPECIFIC_SUGGESTIONS=[];
+const DAY_START=8,EVENING_START=18,NIGHT_START=21,FEATURED_DURATION=3;
+let allReminders=[],activeFeature=null,lastRefreshCheck=Date.now();
+function updateDayNightMode(){const h=new Date().getHours(),b=document.body;b.classList.remove("day-mode","evening-mode","night-mode");if(h>=DAY_START&&h<EVENING_START)b.classList.add("day-mode");else if(h>=EVENING_START&&h<NIGHT_START)b.classList.add("evening-mode");else b.classList.add("night-mode");}
+function updateTime(){const now=new Date();document.getElementById("time").textContent=now.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",hour12:true});document.getElementById("date").textContent=now.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});updateDayNightMode();displayCaregiver();checkReminders();if(window.currentWeatherCode!==undefined){const wi=getWeatherInfo(window.currentWeatherCode);document.getElementById("weatherIcon").textContent=wi.icon;}}
+async function updateWeather(){try{const g=await fetch(\`https://geocoding-api.open-meteo.com/v1/search?name=\${encodeURIComponent("${zip}")}&count=1&language=en&format=json\`);const gd=await g.json();if(gd.results&&gd.results.length>0){const{latitude,longitude}=gd.results[0];const w=await fetch(\`https://api.open-meteo.com/v1/forecast?latitude=\${latitude}&longitude=\${longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto\`);const wd=await w.json();const temp=Math.round(wd.current.temperature_2m);document.getElementById("temperature").textContent=\`\${temp}°F\`;const wi=getWeatherInfo(wd.current.weather_code);document.getElementById("weatherIcon").textContent=wi.icon;document.getElementById("weatherDesc").textContent=wi.description;window.currentWeatherCode=wd.current.weather_code;}}catch(e){document.getElementById("weatherDesc").textContent="Weather unavailable";}}
+function getWeatherInfo(code){const isN=new Date().getHours()>=20||new Date().getHours()<6;const m={0:{icon:isN?"🌙":"☀️",description:"Clear sky"},1:{icon:isN?"🌙":"🌤️",description:"Mainly clear"},2:{icon:isN?"☁️":"⛅",description:"Partly cloudy"},3:{icon:"☁️",description:"Overcast"},45:{icon:"🌫️",description:"Foggy"},51:{icon:"🌦️",description:"Light drizzle"},61:{icon:"🌧️",description:"Light rain"},63:{icon:"🌧️",description:"Rain"},65:{icon:"🌧️",description:"Heavy rain"},71:{icon:"🌨️",description:"Light snow"},80:{icon:"🌦️",description:"Showers"},95:{icon:"⛈️",description:"Thunderstorm"}};return m[code]||{icon:isN?"🌙":"🌤️",description:"Unknown"};}
+function generateReminders(){allReminders=[];const today=new Date(),dow=today.getDay();const ds=\`\${today.getFullYear()}-\${String(today.getMonth()+1).padStart(2,'0')}-\${String(today.getDate()).padStart(2,'0')}\`;SPECIFIC_DATE_EVENTS.forEach(e=>{if(e.date===ds)allReminders.push({time:e.time,text:e.text,featured:e.featured,icon:e.icon,schedule:true});});WEEKLY_EVENTS.forEach(e=>{if(e.dayOfWeek===dow)allReminders.push({time:e.time,text:e.text,featured:e.featured,icon:e.icon,schedule:true});});DAILY_REMINDERS.forEach(r=>allReminders.push({time:r.time,text:r.text,featured:r.featured,icon:r.icon,schedule:false}));RECURRING_REMINDERS.forEach(r=>{const[sh,sm]=r.startTime.split(':').map(Number);const[eh,em]=r.endTime.split(':').map(Number);for(let m=sh*60+sm;m<=eh*60+em;m+=r.interval){allReminders.push({time:\`\${String(Math.floor(m/60)).padStart(2,'0')}:\${String(m%60).padStart(2,'0')}\`,text:r.text,featured:r.featured,icon:r.icon,schedule:false});}});allReminders.sort((a,b)=>a.time.localeCompare(b.time));displayReminders();displaySuggestions();}
+function displayCaregiver(){const now=new Date(),h=now.getHours(),dow=now.getDay();const ds=now.toISOString().split('T')[0];let name='',isNight=h>=19||h<7;let heart=h>=8&&h<18?'💜':h>=18&&h<21?'💚':'❤️';if(isNight){let nd=dow,nds=ds;if(h<7){const y=new Date(now);y.setDate(y.getDate()-1);nd=y.getDay();nds=y.toISOString().split('T')[0];}const sub=SUBSTITUTE_NIGHT_CAREGIVERS.find(c=>c.date===nds);name=sub?sub.name:(NIGHT_CAREGIVERS.find(c=>c.dayOfWeek===nd)||{name:''}).name;const el=document.getElementById('caregiverName');el.innerHTML=name?\`\${name} is here tonight \${heart}\`:'';el.style.display=name?'block':'none';}else{const sub=SUBSTITUTE_CAREGIVERS.find(c=>c.date===ds);name=sub?sub.name:(WEEKLY_CAREGIVERS.find(c=>c.dayOfWeek===dow)||{name:''}).name;const el=document.getElementById('caregiverName');el.innerHTML=name?\`\${name} is here today \${heart}\`:'';el.style.display=name?'block':'none';}}
+function displayReminders(){const now=new Date(),ct=\`\${String(now.getHours()).padStart(2,'0')}:\${String(now.getMinutes()).padStart(2,'0')}\`;const el=document.getElementById('remindersList');el.innerHTML='';const items=allReminders.filter(r=>r.schedule);if(!items.length){el.innerHTML='<div class="reminder-item">Nothing scheduled today</div>';return;}items.forEach(r=>{const d=document.createElement('div');d.className='reminder-item';if(r.time<ct)d.classList.add('past-event');d.innerHTML=\`<span class="reminder-time">\${r.icon} \${fmt12(r.time)}</span><span>\${r.text}</span>\`;el.appendChild(d);});}
+function displaySuggestions(){const today=new Date(),dow=today.getDay();const ds=today.toISOString().split('T')[0];const m=today.getMonth()+1,d=today.getDate(),h=today.getHours();const el=document.getElementById('suggestionsList');el.innerHTML='';let all=[];const hol=HOLIDAYS.find(x=>x.month===m&&x.day===d);if(hol){const c=(h>=21||h<8)?'#666666':hol.color;all.push({text:hol.text,icon:hol.emoji,color:c,isHoliday:true});}SPECIFIC_SUGGESTIONS.forEach(s=>{if(s.date===ds)all.push({text:s.text,icon:s.icon});});DAILY_SUGGESTIONS.forEach(s=>all.push({text:s.text,icon:s.icon}));WEEKLY_SUGGESTIONS.forEach(s=>{if(s.dayOfWeek===dow)all.push({text:s.text,icon:s.icon});});const show=all.slice(0,3);if(!show.length){el.innerHTML='<div class="reminder-item">Enjoy your day</div>';return;}show.forEach(s=>{const d=document.createElement('div');d.className='reminder-item';const cs=s.isHoliday?\`style="color:\${s.color};"\`:'';d.innerHTML=\`<span \${cs}>\${s.icon} \${s.text}</span>\`;el.appendChild(d);});}
+function fmt12(t){const[h,m]=t.split(':').map(Number);const ap=h>=12?'PM':'AM';return \`\${h%12||12}:\${String(m).padStart(2,'0')} \${ap}\`;}
+function checkReminders(){if(activeFeature)return;const now=new Date(),ct=\`\${String(now.getHours()).padStart(2,'0')}:\${String(now.getMinutes()).padStart(2,'0')}\`;const fr=allReminders.find(r=>r.time===ct&&r.featured);if(fr)showFeatured(fr);}
+function generateChime(){try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.setValueAtTime(800,ac.currentTime);o.frequency.exponentialRampToValueAtTime(400,ac.currentTime+0.3);g.gain.setValueAtTime(0.3,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ac.currentTime+0.3);o.start(ac.currentTime);o.stop(ac.currentTime+0.3);}catch(e){}}
+async function showFeatured(r){activeFeature=r;const ov=document.getElementById('featuredOverlay');document.getElementById('featuredIcon').textContent=r.icon;document.getElementById('featuredTime').textContent=fmt12(r.time);document.getElementById('featuredText').textContent=r.text;ov.classList.add('active');generateChime();setTimeout(()=>{ov.classList.remove('active');activeFeature=null;displayReminders();},FEATURED_DURATION*60*1000);}
+function checkRefresh(){const now=new Date(),h=now.getHours(),m=now.getMinutes();if(h===0&&m===0&&!activeFeature){location.reload();return;}const since=Date.now()-lastRefreshCheck;if(h>=8&&h<22&&since>=15*60*1000&&!activeFeature){lastRefreshCheck=Date.now();location.reload();}}
+function init(){updateTime();updateWeather();generateReminders();displayCaregiver();setInterval(updateTime,1000);setInterval(checkRefresh,60000);setInterval(updateWeather,30*60*1000);setInterval(()=>{if(new Date().getHours()===0&&new Date().getMinutes()===0)generateReminders();},60000);}
+window.addEventListener('load',init);
+<\/script>
+</body>
+</html>`;
+}
+
+function render(){
+  const app=document.getElementById('app');
+  const dots=Array.from({length:TOTAL},(_,i)=>{
+    const cls=i+1<step?'done':i+1===step?'active':'';
+    return `<div class="pdot ${cls}"></div>`;
+  }).join('');
+  let content='';
+
+  if(step===1){
+    content=`
+      <div class="step-label">Step 1 of ${TOTAL}</div>
+      <div class="step-title">About your loved one</div>
+      <div class="step-desc">We'll use this to personalize the display. The zip code pulls live weather automatically every 30 minutes.</div>
+      <div class="field">
+        <label>What should the display call them?</label>
+        <input type="text" id="f-name" value="${data.displayName}" placeholder="e.g. Mom, Dorothy, Grandpa Joe"/>
+        <div class="hint">Appears in the caregiver greeting</div>
+      </div>
+      <div class="field">
+        <label>Home zip code (for live weather)</label>
+        <input type="text" id="f-zip" value="${data.zip}" placeholder="e.g. 20904" maxlength="5"/>
+      </div>`;
+  }
+
+  if(step===2){
+    const wkd=[1,2,3,4,5].map(i=>`<div><div class="day-label">${DAYS[i]}</div><input type="text" id="f-cg-${i}" value="${data.caregivers[i]}" placeholder="Name" style="text-align:center;padding:7px 4px;"/></div>`).join('');
+    const wknd=[6,0].map(i=>`<div><div class="day-label">${DAYS[i]}</div><input type="text" id="f-cg-${i}" value="${data.caregivers[i]}" placeholder="Name" style="text-align:center;padding:7px 4px;"/></div>`).join('');
+    content=`
+      <div class="step-label">Step 2 of ${TOTAL}</div>
+      <div class="step-title">Caregiver schedule</div>
+      <div class="step-desc">The display automatically shows the right name based on the day. The display switches to the night caregiver at 7 PM.</div>
+      <div class="field">
+        <label>Weekday caregivers</label>
+        <div class="grid5">${wkd}</div>
+      </div>
+      <div class="field">
+        <label>Weekend caregivers</label>
+        <div class="grid2">${wknd}</div>
+      </div>
+      <div class="field">
+        <label>Night caregiver (all nights)</label>
+        <input type="text" id="f-night" value="${data.nightCaregiver}" placeholder="Overnight caregiver name"/>
+      </div>`;
+  }
+
+  if(step===3){
+    content=`
+      <div class="step-label">Step 3 of ${TOTAL}</div>
+      <div class="step-title">Medication times</div>
+      <div class="step-desc">At each of these times, the display shows a full-screen reminder with a gentle chime. Set them to match your actual schedule.</div>
+      <div class="grid3">
+        <div class="field"><label>Morning</label><input type="time" id="f-med-am" value="${data.medMorning}"/></div>
+        <div class="field"><label>Afternoon</label><input type="time" id="f-med-pm" value="${data.medAfternoon}"/></div>
+        <div class="field"><label>Evening</label><input type="time" id="f-med-ev" value="${data.medEvening}"/></div>
+      </div>
+      <div class="info-box">The display also includes automatic water reminders every hour and movement prompts every 2 hours during the day. These can be adjusted by editing the HTML file after download.</div>`;
+  }
+
+  if(step===4){
+    const apptF=data.appts.map((a,i)=>`
+      <div class="appt-block">
+        <div class="appt-num">Appointment ${i+1}${a.text?' — '+a.text.slice(0,28)+(a.text.length>28?'…':''):''}</div>
+        <div class="grid2" style="margin-bottom:10px;">
+          <div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Date</label><input type="date" id="f-appt-${i}-date" value="${a.date}"/></div>
+          <div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Time</label><input type="time" id="f-appt-${i}-time" value="${a.time}"/></div>
+        </div>
+        <div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Description</label><input type="text" id="f-appt-${i}-text" value="${a.text}" placeholder="e.g. Dr. Reilly follow-up at 3:00 PM"/></div>
+      </div>`).join('');
+    content=`
+      <div class="step-label">Step 4 of ${TOTAL}</div>
+      <div class="step-title">Upcoming appointments</div>
+      <div class="step-desc">These appear in the schedule column and trigger a full-screen pop-up at the start time. Leave blank to skip. You can add more by editing the file later.</div>
+      ${apptF}`;
+  }
+
+  if(step===5){
+    const n=data.displayName||'your loved one';
+    content=`
+      <div class="done-card">
+        <div style="font-size:40px;">💜</div>
+        <h3>Ready for ${n}</h3>
+        <p>Your Memory LUV Kit is personalized and ready to download. Open the file in any browser, then cast or mirror it to a TV or monitor.</p>
+      </div>
+      <div class="instructions">
+        <h4>First-time setup</h4>
+        <ol>
+          <li>Click Download — save the <strong>.html file</strong> anywhere on your computer</li>
+          <li>Double-click it to open in Chrome or Edge</li>
+          <li>Press <strong>F11</strong> (PC) or <strong>⌘ Ctrl F</strong> (Mac) for full screen</li>
+          <li>Cast or mirror to your TV or monitor — it updates automatically 24/7</li>
+        </ol>
+      </div>
+      <div class="instructions">
+        <h4>Adding appointments later</h4>
+        <ol>
+          <li>Open the .html file in Notepad or TextEdit</li>
+          <li>Find the line that says <strong>SPECIFIC_DATE_EVENTS</strong></li>
+          <li>Add a new line following the same pattern you see there</li>
+          <li>Save and refresh the browser — changes appear instantly</li>
+        </ol>
+      </div>
+      <div style="text-align:center;margin-top:28px;">
+        <button class="btn btn-download" onclick="doDownload()">⬇ Download Memory LUV Kit</button>
+        <div style="font-size:11px;color:var(--taupe);margin-top:8px;">memory-luv-kit-${(data.displayName||'display').toLowerCase().replace(/\s+/g,'-')}.html</div>
+      </div>`;
+  }
+
+  const back=step>1?`<button class="btn" onclick="goBack()">← Back</button>`:`<div></div>`;
+  const next=step<TOTAL?`<button class="btn btn-primary" onclick="goNext()">Continue →</button>`:`<div></div>`;
+
+  app.innerHTML=`<div class="progress">${dots}</div>${content}<div class="nav">${back}${next}</div>`;
+}
+
+function collect(){
+  if(step===1){data.displayName=(document.getElementById('f-name')||{}).value||'';data.zip=(document.getElementById('f-zip')||{}).value||'';}
+  if(step===2){[0,1,2,3,4,5,6].forEach(i=>{const el=document.getElementById(`f-cg-${i}`);if(el)data.caregivers[i]=el.value;});data.nightCaregiver=(document.getElementById('f-night')||{}).value||'';}
+  if(step===3){data.medMorning=(document.getElementById('f-med-am')||{}).value||'08:00';data.medAfternoon=(document.getElementById('f-med-pm')||{}).value||'13:00';data.medEvening=(document.getElementById('f-med-ev')||{}).value||'18:00';}
+  if(step===4){data.appts=data.appts.map((_,i)=>({date:(document.getElementById(`f-appt-${i}-date`)||{}).value||'',time:(document.getElementById(`f-appt-${i}-time`)||{}).value||'',text:(document.getElementById(`f-appt-${i}-text`)||{}).value||''}));}
+}
+function goNext(){collect();step=Math.min(step+1,TOTAL);render();}
+function goBack(){collect();step=Math.max(step-1,1);render();}
+function doDownload(){
+  const html=generateDisplayHTML(data);
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`memory-luv-kit-${(data.displayName||'display').toLowerCase().replace(/\s+/g,'-')}.html`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+}
+render();
+</script>
+</body>
+</html>
