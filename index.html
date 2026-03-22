@@ -4,36 +4,37 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Memory LUV Kit — Configurator | LUVNOTES</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/index.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/outfit@5/index.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --brand:#4A1942;--brand-light:#7A3870;--gold:#C9A05A;
-  --cream:#F7F2EA;--cream-dark:#EDE5D8;--rule:#D5C9B8;
-  --ink:#1A1A1A;--ink-light:#4A4A4A;--taupe:#8B7355;
+  --brand:#1B3A4B;--brand-mid:#2E6B8A;--brand-light:#4A8FAD;
+  --amber:#C4883A;--amber-light:#D9A55A;
+  --cream:#F4EFE6;--cream-dark:#E8E0D0;--rule:#C8BAA4;
+  --ink:#1A1A1A;--ink-light:#4A4A4A;--taupe:#7A6651;
 }
-body{font-family:'Poppins',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
-header{background:var(--brand);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;}
-.wordmark{font-family:'Lora',serif;font-size:26px;color:#F7F2EA;letter-spacing:2px;}
-.wordmark span{color:var(--gold);}
-.header-sub{font-size:11px;color:rgba(247,242,234,0.6);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
-main{flex:1;display:flex;justify-content:center;align-items:flex-start;padding:40px 20px 60px;}
-.card{background:#fff;border-radius:16px;box-shadow:0 4px 32px rgba(74,25,66,0.10);padding:40px 44px;width:100%;max-width:580px;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+header{background:var(--brand);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.hd-left{}
+.hd-wordmark{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:400;color:rgba(244,239,230,0.45);letter-spacing:3.5px;text-transform:uppercase;margin-bottom:2px;}
+.hd-product{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#F4EFE6;letter-spacing:.3px;line-height:1.1;}
+.hd-product em{color:var(--amber-light);font-style:normal;}
+.hd-right{font-family:'Outfit',sans-serif;font-size:11px;color:rgba(244,239,230,0.35);letter-spacing:.3px;text-align:right;line-height:1.7;}
+main{flex:1;display:flex;justify-content:center;padding:40px 20px 60px;}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 40px rgba(27,58,75,0.10);padding:40px 44px;width:100%;max-width:580px;height:fit-content;}
 .progress{display:flex;gap:6px;margin-bottom:32px;}
 .pdot{flex:1;height:3px;border-radius:2px;background:var(--rule);transition:background .3s;}
 .pdot.done{background:var(--brand);}
-.pdot.active{background:var(--gold);}
-.step-label{font-size:11px;color:var(--taupe);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
-.step-title{font-family:'Lora',serif;font-size:24px;color:var(--brand);margin-bottom:6px;}
-.step-desc{font-size:13px;color:var(--ink-light);line-height:1.6;margin-bottom:28px;}
+.pdot.active{background:var(--amber);}
+.step-label{font-size:11px;color:var(--taupe);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--brand);margin-bottom:6px;line-height:1.2;}
+.step-desc{font-size:13px;color:var(--ink-light);line-height:1.65;margin-bottom:28px;}
 .field{margin-bottom:20px;}
 .field label{display:block;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;}
 .field .hint{font-size:11px;color:var(--taupe);margin-top:4px;}
-input[type=text],input[type=date],input[type=time]{
-  width:100%;padding:9px 12px;border:1.5px solid var(--rule);border-radius:8px;
-  font-family:'Poppins',sans-serif;font-size:14px;background:#fff;color:var(--ink);transition:border-color .2s;
-}
-input:focus{outline:none;border-color:var(--brand-light);box-shadow:0 0 0 3px rgba(122,56,112,.1);}
+input[type=text],input[type=date],input[type=time]{width:100%;padding:9px 12px;border:1.5px solid var(--rule);border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;background:#fff;color:var(--ink);transition:border-color .2s;}
+input:focus{outline:none;border-color:var(--brand-mid);box-shadow:0 0 0 3px rgba(46,107,138,.1);}
 .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
@@ -41,74 +42,64 @@ input:focus{outline:none;border-color:var(--brand-light);box-shadow:0 0 0 3px rg
 .appt-block{background:var(--cream);border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid var(--rule);}
 .appt-num{font-size:11px;font-weight:500;color:var(--brand);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
 .nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--rule);}
-.btn{padding:10px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--rule);background:transparent;color:var(--ink-light);transition:all .15s;}
-.btn:hover{background:var(--cream);border-color:var(--taupe);}
+.btn{padding:10px 22px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--rule);background:transparent;color:var(--ink-light);transition:all .15s;}
+.btn:hover{background:var(--cream);}
 .btn-primary{background:var(--brand);color:#fff;border-color:var(--brand);}
-.btn-primary:hover{background:var(--brand-light);border-color:var(--brand-light);}
-.btn-download{background:var(--gold);color:#3a2800;border-color:var(--gold);font-size:15px;padding:13px 32px;border-radius:10px;}
-.btn-download:hover{opacity:.88;}
+.btn-primary:hover{background:var(--brand-mid);border-color:var(--brand-mid);}
+.btn-dl{background:var(--amber);color:#fff;border-color:var(--amber);font-size:15px;padding:13px 32px;border-radius:10px;font-family:'Outfit',sans-serif;cursor:pointer;font-weight:500;}
+.btn-dl:hover{background:var(--amber-light);}
 .done-card{background:var(--cream);border-radius:12px;padding:28px;text-align:center;margin-bottom:24px;border:1px solid var(--rule);}
-.done-card h3{font-family:'Lora',serif;font-size:20px;color:var(--brand);margin:12px 0 8px;}
+.done-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--brand);margin:10px 0 8px;}
 .done-card p{font-size:13px;color:var(--ink-light);line-height:1.7;}
-.instructions{background:#fff;border-radius:10px;border:1px solid var(--rule);padding:16px 20px;margin-bottom:16px;}
-.instructions h4{font-size:11px;font-weight:500;color:var(--brand);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
-.instructions ol{padding-left:18px;}
-.instructions li{font-size:13px;color:var(--ink-light);line-height:1.85;}
-.instructions li strong{color:var(--ink);font-weight:500;}
-.info-box{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;color:var(--ink-light);line-height:1.6;margin-top:8px;}
-.feature-pill{display:inline-block;background:rgba(201,160,90,0.15);border:1px solid var(--gold);color:var(--brand);font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:16px;letter-spacing:.3px;}
-footer{background:var(--brand);padding:16px 24px;text-align:center;}
-footer p{font-size:11px;color:rgba(247,242,234,0.5);letter-spacing:.5px;}
-footer span{color:var(--gold);}
+.instr{background:#fff;border-radius:10px;border:1px solid var(--rule);padding:16px 20px;margin-bottom:14px;}
+.instr h4{font-size:11px;font-weight:500;color:var(--brand);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.instr ol{padding-left:18px;}
+.instr li{font-size:13px;color:var(--ink-light);line-height:1.85;}
+.instr li strong{color:var(--ink);font-weight:500;}
+.info-box{background:var(--cream);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;color:var(--ink-light);line-height:1.6;margin-top:10px;}
+.pill{display:inline-block;background:rgba(196,136,58,0.12);border:1px solid rgba(196,136,58,0.4);color:var(--brand);font-size:11px;padding:3px 10px;border-radius:20px;margin-bottom:18px;}
+footer{background:var(--brand);padding:13px 28px;text-align:center;}
+footer p{font-size:11px;color:rgba(244,239,230,0.38);letter-spacing:.4px;}
+footer span{color:var(--amber-light);}
 </style>
 </head>
 <body>
 <header>
-  <div>
-    <div class="wordmark">LUV<span>NOTES</span></div>
-    <div class="header-sub">Memory LUV Kit &middot; Configurator</div>
+  <div class="hd-left">
+    <div class="hd-wordmark">LUVNOTES</div>
+    <div class="hd-product">Memory <em>LUV</em> Kit</div>
   </div>
-  <div style="font-family:'Lora',serif;font-size:13px;color:rgba(247,242,234,0.5);">RMS Omni Media</div>
+  <div class="hd-right">RMS OmniMedia<br>Configurator</div>
 </header>
-<main>
-  <div class="card" id="app"></div>
-</main>
-<footer>
-  <p>A <span>LUVNOTES</span> product by RMS Omni Media &nbsp;&middot;&nbsp; For the person you love.</p>
-</footer>
+
+<main><div class="card" id="app"></div></main>
+
+<footer><p>A <span>LUVNOTES</span> product by RMS OmniMedia &nbsp;·&nbsp; For the person you love.</p></footer>
+
 <script>
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const TOTAL=5;
 let step=1;
-let data={
-  displayName:'',zip:'',
-  caregivers:['','','','','','',''],
-  nightCaregiver:'',
-  medMorning:'08:00',medAfternoon:'13:00',medEvening:'18:00',
-  appts:[{date:'',time:'',text:''},{date:'',time:'',text:''},{date:'',time:'',text:''}]
-};
+let data={displayName:'',zip:'',caregivers:['','','','','','',''],nightCaregiver:'',medMorning:'08:00',medAfternoon:'13:00',medEvening:'18:00',appts:[{date:'',time:'',text:''},{date:'',time:'',text:''},{date:'',time:'',text:''}]};
 
-function esc(s){return s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\${/g,'\\${');}
-function escAttr(s){return s.replace(/"/g,"'").replace(/</g,'&lt;');}
+function ea(s){return String(s).replace(/"/g,"'").replace(/</g,'&lt;');}
 
-function generateDisplayHTML(d){
+function genHTML(d){
   const name=d.displayName||'Your Loved One';
   const zip=d.zip||'20904';
-  const cgArr=DAYS.map((day,i)=>`{dayOfWeek:${i},name:"${escAttr(d.caregivers[i]||'Caregiver')}"}`).join(',');
-  const nightArr=DAYS.map((_,i)=>`{dayOfWeek:${i},name:"${escAttr(d.nightCaregiver||'Night Caregiver')}"}`).join(',');
-  const apptLines=d.appts.filter(a=>a.date&&a.text).map(a=>`{date:"${a.date}",time:"${a.time||'09:00'}",text:"${escAttr(a.text)}",featured:true,icon:"📋"}`).join(',');
-  const safeZip=escAttr(zip);
-  const safeName=escAttr(name);
+  const cg=DAYS.map((_,i)=>`{dayOfWeek:${i},name:"${ea(d.caregivers[i]||'Caregiver')}"}`).join(',');
+  const nc=DAYS.map((_,i)=>`{dayOfWeek:${i},name:"${ea(d.nightCaregiver||'Night Caregiver')}"}`).join(',');
+  const ap=d.appts.filter(a=>a.date&&a.text).map(a=>`{date:"${a.date}",time:"${a.time||'09:00'}",text:"${ea(a.text)}",featured:true,icon:"📋"}`).join(',');
+  const cgInit=DAYS.map((_,i)=>`"${ea(d.caregivers[i]||'')}"`).join(',');
+  const apInit=d.appts.filter(a=>a.date&&a.text).map(a=>`{date:"${a.date}",time:"${a.time||'09:00'}",text:"${ea(a.text)}"}`).join(',');
 
   return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Memory LUV Kit — ${safeName}</title>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Memory LUV Kit — ${ea(name)}</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;transition:background-color 0.5s,color 0.5s;overflow:hidden;height:100vh;display:flex;flex-direction:column;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;transition:background-color .5s,color .5s;overflow:hidden;height:100vh;display:flex;flex-direction:column;}
 body.day-mode{background:#d4dbc1;color:#1a1a1a;}
 body.evening-mode{background:#2a2a2a;color:#e8e8e8;}
 body.night-mode{background:#0a0a0a;color:#666;}
@@ -127,7 +118,7 @@ body.night-mode .time-section{border-bottom-color:#2a2a2a;}
 .caregiver-section{text-align:center;font-size:65px;font-weight:500;padding-top:17px;padding-bottom:20px;margin-bottom:20px;border-bottom:2px solid;}
 body.day-mode .caregiver-section{color:#321d6b;border-bottom-color:#b5bd9a;}
 body.evening-mode .caregiver-section{color:#d4dbc1;border-bottom-color:#404040;}
-body.night-mode .caregiver-section{color:#666;border-bottom-color:#2a2a2a;}
+body.night-mode .caregiver-section{color:#555;border-bottom-color:#2a2a2a;}
 .bottom-section{display:flex;gap:30px;flex:1;overflow:hidden;}
 .schedule-column{flex:2;overflow-y:auto;}
 .suggestions-column{flex:1;overflow-y:auto;}
@@ -140,529 +131,205 @@ body.night-mode .reminder-item{background:#1a1a1a;}
 .reminder-time{font-weight:600;margin-right:15px;}
 .featured-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:none;justify-content:center;align-items:center;z-index:900;}
 .featured-overlay.active{display:flex;}
-body.day-mode .featured-overlay{background:rgba(212,219,193,0.98);}
-body.evening-mode .featured-overlay{background:rgba(42,42,42,0.98);}
-body.night-mode .featured-overlay{background:rgba(10,10,10,0.98);}
+body.day-mode .featured-overlay{background:rgba(212,219,193,.98);}
+body.evening-mode .featured-overlay{background:rgba(42,42,42,.98);}
+body.night-mode .featured-overlay{background:rgba(10,10,10,.98);}
 .featured-content{text-align:center;padding:60px;border-radius:20px;max-width:80%;}
 body.day-mode .featured-content{background:#e8efd9;box-shadow:0 20px 60px rgba(0,0,0,.15);}
-body.evening-mode .featured-content,body.night-mode .featured-content{background:#333;}
+body.evening-mode .featured-content,body.night-mode .featured-content{background:#2a2a2a;}
 .featured-icon{font-size:120px;margin-bottom:30px;}
 .featured-time{font-size:72px;font-weight:600;margin-bottom:20px;}
 .featured-text{font-size:64px;font-weight:500;line-height:1.3;}
-/* ── Configure button ── */
 #cfg-btn{position:fixed;bottom:14px;left:14px;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:800;transition:opacity .2s;}
-body.day-mode #cfg-btn{background:rgba(181,189,154,0.6);color:#4a4a4a;}
-body.evening-mode #cfg-btn{background:rgba(60,60,60,0.7);color:#aaa;}
-body.night-mode #cfg-btn{background:rgba(30,30,30,0.7);color:#444;}
+body.day-mode #cfg-btn{background:rgba(181,189,154,.55);color:#4a4a4a;opacity:.3;}
+body.evening-mode #cfg-btn{background:rgba(60,60,60,.7);color:#999;opacity:.25;}
+body.night-mode #cfg-btn{background:rgba(30,30,30,.7);color:#444;opacity:.15;}
 #cfg-btn:hover{opacity:1!important;}
-body.day-mode #cfg-btn{opacity:.35;}
-body.evening-mode #cfg-btn{opacity:.3;}
-body.night-mode #cfg-btn{opacity:.2;}
-/* ── Config panel ── */
-#cfg-panel{position:fixed;top:0;right:-440px;width:420px;height:100%;background:#F7F2EA;box-shadow:-4px 0 32px rgba(0,0,0,.18);z-index:1000;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+#cfg-panel{position:fixed;top:0;right:-440px;width:420px;height:100%;background:#F4EFE6;box-shadow:-4px 0 32px rgba(0,0,0,.18);z-index:1000;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;}
 #cfg-panel.open{right:0;}
-#cfg-panel-inner{padding:28px 28px 40px;flex:1;}
-.cfg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
-.cfg-wordmark{font-family:Georgia,serif;font-size:18px;color:#4A1942;letter-spacing:2px;}
-.cfg-wordmark span{color:#C9A05A;}
-#cfg-close{background:none;border:none;font-size:22px;cursor:pointer;color:#8B7355;line-height:1;padding:4px;}
-.cfg-section{margin-bottom:22px;}
-.cfg-section-title{font-size:11px;font-weight:500;color:#4A1942;text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #D5C9B8;}
-.cfg-field{margin-bottom:12px;}
-.cfg-field label{display:block;font-size:12px;color:#4A4A4A;margin-bottom:4px;}
-.cfg-field input{width:100%;padding:7px 10px;border:1.5px solid #D5C9B8;border-radius:7px;font-size:13px;font-family:inherit;background:#fff;color:#1A1A1A;}
-.cfg-field input:focus{outline:none;border-color:#7A3870;}
-.cfg-grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px;}
-.cfg-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
-.cfg-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-.cfg-day-label{font-size:10px;color:#8B7355;text-align:center;margin-bottom:3px;}
-.cfg-appt{background:#EDE5D8;border-radius:8px;padding:10px;margin-bottom:8px;}
-.cfg-appt-num{font-size:10px;font-weight:500;color:#4A1942;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-.cfg-save{width:100%;padding:12px;background:#4A1942;color:#F7F2EA;border:none;border-radius:9px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;margin-top:8px;}
-.cfg-save:hover{background:#7A3870;}
-.cfg-note{font-size:11px;color:#8B7355;text-align:center;margin-top:10px;line-height:1.5;}
-</style>
-</head>
-<body>
+#cfg-inner{padding:26px 26px 40px;}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;}
+.cw{font-size:10px;letter-spacing:3px;color:#2E6B8A;opacity:.65;text-transform:uppercase;margin-bottom:2px;}
+.cp{font-size:19px;font-weight:600;color:#1B3A4B;font-family:Georgia,serif;}
+.cp em{color:#C4883A;font-style:normal;}
+#cc{background:none;border:none;font-size:20px;cursor:pointer;color:#7A6651;padding:2px;}
+.cs{margin-bottom:18px;}
+.cst{font-size:10px;font-weight:500;color:#1B3A4B;text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px;padding-bottom:5px;border-bottom:1px solid #C8BAA4;}
+.cf{margin-bottom:9px;}
+.cf label{display:block;font-size:12px;color:#4A4A4A;margin-bottom:3px;}
+.cf input{width:100%;padding:7px 10px;border:1.5px solid #C8BAA4;border-radius:7px;font-size:13px;font-family:inherit;background:#fff;color:#1A1A1A;}
+.cf input:focus{outline:none;border-color:#2E6B8A;}
+.cg5{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:8px;}
+.cg2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px;}
+.cg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
+.cdl{font-size:10px;color:#7A6651;text-align:center;margin-bottom:3px;}
+.ca{background:#E8E0D0;border-radius:8px;padding:10px;margin-bottom:7px;}
+.can{font-size:10px;font-weight:500;color:#1B3A4B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+.csave{width:100%;padding:12px;background:#1B3A4B;color:#F4EFE6;border:none;border-radius:9px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px;}
+.csave:hover{background:#2E6B8A;}
+.cnote{font-size:11px;color:#7A6651;text-align:center;margin-top:8px;line-height:1.5;}
+.cadd{font-size:12px;padding:5px 13px;border:1px solid #C8BAA4;border-radius:6px;background:#fff;color:#1B3A4B;cursor:pointer;font-family:inherit;}
+.cadd:hover{background:#F4EFE6;}
+</style></head><body>
 <div class="main-content">
   <div class="time-section">
-    <div class="datetime-container">
-      <div class="time" id="time">--:--</div>
-      <div class="date" id="date">Loading...</div>
-    </div>
+    <div><div class="time" id="time">--:--</div><div class="date" id="date">Loading...</div></div>
     <div class="weather-container">
-      <div class="weather-temp"><span class="weather-icon" id="weatherIcon">☀️</span><span id="temperature">--°</span></div>
-      <div class="weather-description" id="weatherDesc">Loading weather...</div>
+      <div class="weather-temp"><span class="weather-icon" id="wi">☀️</span><span id="temp">--°</span></div>
+      <div class="weather-description" id="wd">Loading weather...</div>
     </div>
   </div>
   <div class="reminders-section">
-    <div class="caregiver-section" id="caregiverName"></div>
+    <div class="caregiver-section" id="cgn"></div>
     <div class="bottom-section">
-      <div class="schedule-column"><div class="reminders-title">Today's Schedule</div><div id="remindersList"></div></div>
-      <div class="suggestions-column"><div class="reminders-title">For Today</div><div id="suggestionsList"></div></div>
+      <div class="schedule-column"><div class="reminders-title">Today's Schedule</div><div id="rl"></div></div>
+      <div class="suggestions-column"><div class="reminders-title">For Today</div><div id="sl"></div></div>
     </div>
   </div>
 </div>
-<div class="featured-overlay" id="featuredOverlay">
+<div class="featured-overlay" id="fo">
   <div class="featured-content">
-    <div class="featured-icon" id="featuredIcon">⏰</div>
-    <div class="featured-time" id="featuredTime"></div>
-    <div class="featured-text" id="featuredText"></div>
+    <div class="featured-icon" id="fi">⏰</div>
+    <div class="featured-time" id="ft"></div>
+    <div class="featured-text" id="fx"></div>
   </div>
 </div>
-
-<!-- Configure button -->
-<button id="cfg-btn" title="Update settings" onclick="openCfg()">⚙</button>
-
-<!-- Config panel -->
+<button id="cfg-btn" title="Settings" onclick="openP()">⚙</button>
 <div id="cfg-panel">
-  <div id="cfg-panel-inner">
-    <div class="cfg-header">
-      <div class="cfg-wordmark">LUV<span>NOTES</span></div>
-      <button id="cfg-close" onclick="closeCfg()">✕</button>
-    </div>
-
-    <div class="cfg-section">
-      <div class="cfg-section-title">About</div>
-      <div class="cfg-field"><label>Name for this display</label><input id="cp-name" type="text" placeholder="Mom, Dorothy…"/></div>
-      <div class="cfg-field"><label>Zip code (for weather)</label><input id="cp-zip" type="text" maxlength="5" placeholder="20904"/></div>
-    </div>
-
-    <div class="cfg-section">
-      <div class="cfg-section-title">Caregivers</div>
-      <div class="cfg-day-label" style="text-align:left;margin-bottom:6px;font-size:11px;">Weekday (Mon–Fri)</div>
-      <div class="cfg-grid5">
-        <div><div class="cfg-day-label">Mon</div><input id="cp-cg-1" type="text"/></div>
-        <div><div class="cfg-day-label">Tue</div><input id="cp-cg-2" type="text"/></div>
-        <div><div class="cfg-day-label">Wed</div><input id="cp-cg-3" type="text"/></div>
-        <div><div class="cfg-day-label">Thu</div><input id="cp-cg-4" type="text"/></div>
-        <div><div class="cfg-day-label">Fri</div><input id="cp-cg-5" type="text"/></div>
-      </div>
-      <div class="cfg-day-label" style="text-align:left;margin-bottom:6px;font-size:11px;">Weekend</div>
-      <div class="cfg-grid2">
-        <div><div class="cfg-day-label">Sat</div><input id="cp-cg-6" type="text"/></div>
-        <div><div class="cfg-day-label">Sun</div><input id="cp-cg-0" type="text"/></div>
-      </div>
-      <div class="cfg-field"><label>Night caregiver (every night, after 7 PM)</label><input id="cp-night" type="text"/></div>
-    </div>
-
-    <div class="cfg-section">
-      <div class="cfg-section-title">Medication reminders</div>
-      <div class="cfg-grid3">
-        <div class="cfg-field"><label>Morning</label><input id="cp-med-am" type="time"/></div>
-        <div class="cfg-field"><label>Afternoon</label><input id="cp-med-pm" type="time"/></div>
-        <div class="cfg-field"><label>Evening</label><input id="cp-med-ev" type="time"/></div>
-      </div>
-    </div>
-
-    <div class="cfg-section">
-      <div class="cfg-section-title">Upcoming appointments</div>
-      <div id="cp-appts"></div>
-      <button onclick="addAppt()" style="font-size:12px;padding:6px 14px;border:1px solid #D5C9B8;border-radius:6px;background:#fff;color:#4A1942;cursor:pointer;font-family:inherit;">+ Add appointment</button>
-    </div>
-
-    <button class="cfg-save" onclick="saveConfig()">Save &amp; Update Display</button>
-    <div class="cfg-note">Changes take effect immediately.<br>Saved automatically to this device.</div>
+<div id="cfg-inner">
+  <div class="ch">
+    <div><div class="cw">LUVNOTES</div><div class="cp">Memory <em>LUV</em> Kit</div></div>
+    <button id="cc" onclick="closeP()">✕</button>
   </div>
+  <div class="cs"><div class="cst">About</div>
+    <div class="cf"><label>Name for this display</label><input id="pn" type="text" placeholder="Mom, Dorothy…"/></div>
+    <div class="cf"><label>Zip code (for weather)</label><input id="pz" type="text" maxlength="5" placeholder="20904"/></div>
+  </div>
+  <div class="cs"><div class="cst">Caregivers</div>
+    <div style="font-size:11px;color:#7A6651;margin-bottom:5px;">Weekday</div>
+    <div class="cg5">
+      <div><div class="cdl">Mon</div><input id="c1" type="text"/></div>
+      <div><div class="cdl">Tue</div><input id="c2" type="text"/></div>
+      <div><div class="cdl">Wed</div><input id="c3" type="text"/></div>
+      <div><div class="cdl">Thu</div><input id="c4" type="text"/></div>
+      <div><div class="cdl">Fri</div><input id="c5" type="text"/></div>
+    </div>
+    <div style="font-size:11px;color:#7A6651;margin-bottom:5px;">Weekend</div>
+    <div class="cg2">
+      <div><div class="cdl">Sat</div><input id="c6" type="text"/></div>
+      <div><div class="cdl">Sun</div><input id="c0" type="text"/></div>
+    </div>
+    <div class="cf"><label>Night caregiver (nightly after 7 PM)</label><input id="cn" type="text"/></div>
+  </div>
+  <div class="cs"><div class="cst">Medication reminders</div>
+    <div class="cg3">
+      <div class="cf"><label>Morning</label><input id="ma" type="time"/></div>
+      <div class="cf"><label>Afternoon</label><input id="mp" type="time"/></div>
+      <div class="cf"><label>Evening</label><input id="me" type="time"/></div>
+    </div>
+  </div>
+  <div class="cs"><div class="cst">Appointments</div>
+    <div id="pa"></div>
+    <button class="cadd" onclick="addA()">+ Add appointment</button>
+  </div>
+  <button class="csave" onclick="saveP()">Save &amp; Update Display</button>
+  <div class="cnote">Changes take effect immediately and are saved to this device.</div>
 </div>
-
+</div>
 <script>
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-// ── Default config (seeded from configurator) ──────────────────────────────
-const SEED_CONFIG = {
-  displayName: "${safeName}",
-  zip: "${safeZip}",
-  caregivers: [${DAYS.map((_,i)=>`"${escAttr(d.caregivers[i]||'')}"`).join(',')}],
-  nightCaregiver: "${escAttr(d.nightCaregiver||'')}",
-  medMorning: "${d.medMorning}",
-  medAfternoon: "${d.medAfternoon}",
-  medEvening: "${d.medEvening}",
-  appts: [${d.appts.filter(a=>a.date&&a.text).map(a=>`{date:"${a.date}",time:"${a.time||'09:00'}",text:"${escAttr(a.text)}"}`).join(',')}]
-};
-
-// ── Load config (localStorage overrides seed) ──────────────────────────────
-let CFG;
-try {
-  const saved = localStorage.getItem('luv_config');
-  CFG = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(SEED_CONFIG));
-} catch(e) { CFG = JSON.parse(JSON.stringify(SEED_CONFIG)); }
-
-// ── Panel open/close ───────────────────────────────────────────────────────
-function openCfg() {
-  populatePanel();
-  document.getElementById('cfg-panel').classList.add('open');
+const SEED={displayName:"${ea(name)}",zip:"${ea(zip)}",caregivers:[${cgInit}],nightCaregiver:"${ea(d.nightCaregiver||'')}",medMorning:"${d.medMorning}",medAfternoon:"${d.medAfternoon}",medEvening:"${d.medEvening}",appts:[${apInit}]};
+let C;try{const s=localStorage.getItem('luv_cfg');C=s?JSON.parse(s):JSON.parse(JSON.stringify(SEED));}catch(e){C=JSON.parse(JSON.stringify(SEED));}
+const HOLS=[{m:1,d:1,t:'Happy New Year!',e:'🎊',c:'#C4883A'},{m:1,d:20,t:'Happy MLK Jr. Day!',e:'✊🏾',c:'#800020'},{m:2,d:14,t:"Happy Valentine's Day!",e:'❤️',c:'#E31B23'},{m:3,d:17,t:"Happy St. Patrick's Day!",e:'🍀',c:'#135425'},{m:4,d:20,t:'Happy Easter!',e:'🐣',c:'#7A3870'},{m:5,d:11,t:"Happy Mother's Day!",e:'💐',c:'#D4537E'},{m:6,d:15,t:"Happy Father's Day!",e:'👔',c:'#1B3A4B'},{m:6,d:19,t:'Happy Juneteenth!',e:'🙌🏾',c:'#008000'},{m:7,d:4,t:'Happy Independence Day!',e:'🎆',c:'#B22234'},{m:10,d:31,t:'Happy Halloween!',e:'🎃',c:'#C4883A'},{m:11,d:27,t:'Happy Thanksgiving!',e:'🦃',c:'#7A4A2A'},{m:12,d:25,t:'Merry Christmas!',e:'🎄',c:'#165B33'}];
+function openP(){pop();document.getElementById('cfg-panel').classList.add('open');}
+function closeP(){document.getElementById('cfg-panel').classList.remove('open');}
+function pop(){
+  document.getElementById('pn').value=C.displayName||'';
+  document.getElementById('pz').value=C.zip||'';
+  [0,1,2,3,4,5,6].forEach(i=>{const el=document.getElementById('c'+i);if(el)el.value=(C.caregivers&&C.caregivers[i])||'';});
+  document.getElementById('cn').value=C.nightCaregiver||'';
+  document.getElementById('ma').value=C.medMorning||'08:00';
+  document.getElementById('mp').value=C.medAfternoon||'13:00';
+  document.getElementById('me').value=C.medEvening||'18:00';
+  rApts(C.appts||[]);
 }
-function closeCfg() {
-  document.getElementById('cfg-panel').classList.remove('open');
+function rApts(a){
+  const c=document.getElementById('pa');c.innerHTML='';
+  const l=a.length?a:[{date:'',time:'',text:''}];
+  l.forEach((x,i)=>{const div=document.createElement('div');div.className='ca';div.innerHTML='<div class="can">Appointment '+(i+1)+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;"><div><label style="font-size:10px;color:#7A6651;">Date</label><input type="date" id="ad'+i+'" value="'+(x.date||'')+'" style="width:100%;padding:5px 7px;border:1px solid #C8BAA4;border-radius:6px;font-size:12px;font-family:inherit;"></div><div><label style="font-size:10px;color:#7A6651;">Time</label><input type="time" id="at'+i+'" value="'+(x.time||'')+'" style="width:100%;padding:5px 7px;border:1px solid #C8BAA4;border-radius:6px;font-size:12px;font-family:inherit;"></div></div><input type="text" id="ax'+i+'" value="'+(x.text||'')+'" placeholder="e.g. Dr. Reilly at 3 PM" style="width:100%;padding:5px 7px;border:1px solid #C8BAA4;border-radius:6px;font-size:12px;font-family:inherit;">';c.appendChild(div);});
 }
-
-function populatePanel() {
-  document.getElementById('cp-name').value = CFG.displayName || '';
-  document.getElementById('cp-zip').value = CFG.zip || '';
-  [0,1,2,3,4,5,6].forEach(i => {
-    const el = document.getElementById('cp-cg-'+i);
-    if(el) el.value = (CFG.caregivers && CFG.caregivers[i]) || '';
-  });
-  document.getElementById('cp-night').value = CFG.nightCaregiver || '';
-  document.getElementById('cp-med-am').value = CFG.medMorning || '08:00';
-  document.getElementById('cp-med-pm').value = CFG.medAfternoon || '13:00';
-  document.getElementById('cp-med-ev').value = CFG.medEvening || '18:00';
-  renderApptFields(CFG.appts || []);
+function addA(){const n=document.querySelectorAll('.ca').length;const c=document.getElementById('pa');const div=document.createElement('div');div.className='ca';div.innerHTML='<div class="can">Appointment '+(n+1)+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;"><div><label style="font-size:10px;color:#7A6651;">Date</label><input type="date" id="ad'+n+'" style="width:100%;padding:5px 7px;border:1px solid #C8BAA4;border-radius:6px;font-size:12px;font-family:inherit;"></div><div><label style="font-size:10px;color:#7A6651;">Time</label><input type="time" id="at'+n+'" style="width:100%;padding:5px 7px;border:1px solid #C8BAA4;border-radius:6px;font-size:12px;font-family:inherit;"></div></div><input type="text" id="ax'+n+'" placeholder="e.g. Dr. Reilly at 3 PM" style="width:100%;padding:5px 7px;border:1px solid #C8BAA4;border-radius:6px;font-size:12px;font-family:inherit;">';c.appendChild(div);}
+function saveP(){
+  C.displayName=document.getElementById('pn').value||'';
+  C.zip=document.getElementById('pz').value||'';
+  C.caregivers=[0,1,2,3,4,5,6].map(i=>{const el=document.getElementById('c'+i);return el?el.value:'';});
+  C.nightCaregiver=document.getElementById('cn').value||'';
+  C.medMorning=document.getElementById('ma').value||'08:00';
+  C.medAfternoon=document.getElementById('mp').value||'13:00';
+  C.medEvening=document.getElementById('me').value||'18:00';
+  const n=document.querySelectorAll('.ca').length;
+  C.appts=Array.from({length:n},(_,i)=>({date:(document.getElementById('ad'+i)||{}).value||'',time:(document.getElementById('at'+i)||{}).value||'',text:(document.getElementById('ax'+i)||{}).value||''})).filter(a=>a.date&&a.text);
+  try{localStorage.setItem('luv_cfg',JSON.stringify(C));}catch(e){}
+  closeP();genR();dispCG();updW();
 }
-
-function renderApptFields(appts) {
-  const container = document.getElementById('cp-appts');
-  container.innerHTML = '';
-  (appts.length ? appts : [{date:'',time:'',text:''}]).forEach((a, i) => {
-    const div = document.createElement('div');
-    div.className = 'cfg-appt';
-    div.innerHTML = \`<div class="cfg-appt-num">Appointment \${i+1}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;">
-        <div><label style="font-size:10px;color:#8B7355;">Date</label><input type="date" id="cp-appt-\${i}-date" value="\${a.date||''}" style="width:100%;padding:5px 7px;border:1px solid #D5C9B8;border-radius:6px;font-size:12px;font-family:inherit;"/></div>
-        <div><label style="font-size:10px;color:#8B7355;">Time</label><input type="time" id="cp-appt-\${i}-time" value="\${a.time||''}" style="width:100%;padding:5px 7px;border:1px solid #D5C9B8;border-radius:6px;font-size:12px;font-family:inherit;"/></div>
-      </div>
-      <input type="text" id="cp-appt-\${i}-text" value="\${a.text||''}" placeholder="Description, e.g. Dr. Reilly at 3 PM" style="width:100%;padding:5px 7px;border:1px solid #D5C9B8;border-radius:6px;font-size:12px;font-family:inherit;"/>\`;
-    container.appendChild(div);
-  });
-}
-
-function addAppt() {
-  const n = document.querySelectorAll('.cfg-appt').length;
-  const container = document.getElementById('cp-appts');
-  const div = document.createElement('div');
-  div.className = 'cfg-appt';
-  div.innerHTML = \`<div class="cfg-appt-num">Appointment \${n+1}</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;">
-      <div><label style="font-size:10px;color:#8B7355;">Date</label><input type="date" id="cp-appt-\${n}-date" style="width:100%;padding:5px 7px;border:1px solid #D5C9B8;border-radius:6px;font-size:12px;font-family:inherit;"/></div>
-      <div><label style="font-size:10px;color:#8B7355;">Time</label><input type="time" id="cp-appt-\${n}-time" style="width:100%;padding:5px 7px;border:1px solid #D5C9B8;border-radius:6px;font-size:12px;font-family:inherit;"/></div>
-    </div>
-    <input type="text" id="cp-appt-\${n}-text" placeholder="Description, e.g. Dr. Reilly at 3 PM" style="width:100%;padding:5px 7px;border:1px solid #D5C9B8;border-radius:6px;font-size:12px;font-family:inherit;"/>\`;
-  container.appendChild(div);
-}
-
-function saveConfig() {
-  CFG.displayName = document.getElementById('cp-name').value || '';
-  CFG.zip = document.getElementById('cp-zip').value || '';
-  CFG.caregivers = [0,1,2,3,4,5,6].map(i => {
-    const el = document.getElementById('cp-cg-'+i);
-    return el ? el.value : '';
-  });
-  CFG.nightCaregiver = document.getElementById('cp-night').value || '';
-  CFG.medMorning = document.getElementById('cp-med-am').value || '08:00';
-  CFG.medAfternoon = document.getElementById('cp-med-pm').value || '13:00';
-  CFG.medEvening = document.getElementById('cp-med-ev').value || '18:00';
-  const n = document.querySelectorAll('.cfg-appt').length;
-  CFG.appts = Array.from({length:n}, (_,i) => ({
-    date: (document.getElementById('cp-appt-'+i+'-date')||{}).value || '',
-    time: (document.getElementById('cp-appt-'+i+'-time')||{}).value || '',
-    text: (document.getElementById('cp-appt-'+i+'-text')||{}).value || '',
-  })).filter(a => a.date && a.text);
-  try { localStorage.setItem('luv_config', JSON.stringify(CFG)); } catch(e) {}
-  closeCfg();
-  generateReminders();
-  displayCaregiver();
-  updateWeather();
-}
-
-// ── Build runtime reminder list from CFG ───────────────────────────────────
-function buildReminders() {
-  const meds = [
-    {time: CFG.medMorning||'08:00', text:'Morning medication', featured:true, icon:'💊'},
-    {time: CFG.medAfternoon||'13:00', text:'Afternoon medication', featured:true, icon:'💊'},
-    {time: CFG.medEvening||'18:00', text:'Evening medication', featured:true, icon:'💊'},
-  ];
-  const recurring = [
-    {interval:60, startTime:'11:00', endTime:'17:00', text:'Take a drink of water', featured:true, icon:'💧'},
-    {interval:135, startTime:'12:45', endTime:'17:45', text:'Move your arms and legs', featured:true, icon:'🤸'},
-  ];
-  const holidays = [
-    {month:1,day:1,text:'Happy New Year!',emoji:'🎊',color:'#FFD700'},
-    {month:1,day:20,text:'Happy MLK Jr. Day!',emoji:'✊🏾',color:'#800020'},
-    {month:2,day:14,text:"Happy Valentine's Day!",emoji:'❤️',color:'#E31B23'},
-    {month:3,day:17,text:"Happy St. Patrick's Day!",emoji:'🍀',color:'#135425'},
-    {month:5,day:11,text:"Happy Mother's Day!",emoji:'💐',color:'#FF69B4'},
-    {month:6,day:15,text:"Happy Father's Day!",emoji:'👔',color:'#1E3A8A'},
-    {month:6,day:19,text:'Happy Juneteenth!',emoji:'🙌🏾',color:'#008000'},
-    {month:7,day:4,text:'Happy Independence Day!',emoji:'🎆',color:'#B22234'},
-    {month:10,day:31,text:'Happy Halloween!',emoji:'🎃',color:'#FF6600'},
-    {month:11,day:27,text:'Happy Thanksgiving!',emoji:'🦃',color:'#D2691E'},
-    {month:12,day:25,text:'Merry Christmas!',emoji:'🎄',color:'#165B33'},
-    {month:4,day:20,text:'Happy Easter!',emoji:'🐣',color:'#B19CD9'},
-  ];
-  return {meds, recurring, holidays};
-}
-
-// ── Display engine ─────────────────────────────────────────────────────────
-const DAY_START=8,EVENING_START=18,NIGHT_START=21,FEATURED_DURATION=3;
-let allReminders=[],activeFeature=null,lastRefreshCheck=Date.now();
-
-function updateDayNightMode(){
-  const h=new Date().getHours(),b=document.body;
-  b.classList.remove('day-mode','evening-mode','night-mode');
-  if(h>=DAY_START&&h<EVENING_START)b.classList.add('day-mode');
-  else if(h>=EVENING_START&&h<NIGHT_START)b.classList.add('evening-mode');
-  else b.classList.add('night-mode');
-}
-
-function updateTime(){
-  const now=new Date();
-  document.getElementById('time').textContent=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
-  document.getElementById('date').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-  updateDayNightMode();displayCaregiver();checkReminders();
-  if(window.currentWeatherCode!==undefined){document.getElementById('weatherIcon').textContent=getWeatherInfo(window.currentWeatherCode).icon;}
-}
-
-async function updateWeather(){
-  const loc=(CFG.zip||'20904');
-  try{
-    const g=await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(loc)+'&count=1&language=en&format=json');
-    const gd=await g.json();
-    if(gd.results&&gd.results.length>0){
-      const{latitude,longitude}=gd.results[0];
-      const w=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto');
-      const wd=await w.json();
-      document.getElementById('temperature').textContent=Math.round(wd.current.temperature_2m)+'°F';
-      const wi=getWeatherInfo(wd.current.weather_code);
-      document.getElementById('weatherIcon').textContent=wi.icon;
-      document.getElementById('weatherDesc').textContent=wi.description;
-      window.currentWeatherCode=wd.current.weather_code;
-    }
-  }catch(e){document.getElementById('weatherDesc').textContent='Weather unavailable';}
-}
-
-function getWeatherInfo(code){
-  const isN=new Date().getHours()>=20||new Date().getHours()<6;
-  const m={0:{icon:isN?'🌙':'☀️',description:'Clear sky'},1:{icon:isN?'🌙':'🌤️',description:'Mainly clear'},2:{icon:isN?'☁️':'⛅',description:'Partly cloudy'},3:{icon:'☁️',description:'Overcast'},45:{icon:'🌫️',description:'Foggy'},51:{icon:'🌦️',description:'Light drizzle'},61:{icon:'🌧️',description:'Light rain'},63:{icon:'🌧️',description:'Rain'},65:{icon:'🌧️',description:'Heavy rain'},71:{icon:'🌨️',description:'Light snow'},73:{icon:'🌨️',description:'Snow'},80:{icon:'🌦️',description:'Showers'},95:{icon:'⛈️',description:'Thunderstorm'}};
-  return m[code]||{icon:isN?'🌙':'🌤️',description:'Unknown'};
-}
-
-function generateReminders(){
-  allReminders=[];
-  const today=new Date(),dow=today.getDay();
-  const ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
-  const {meds,recurring}=buildReminders();
-  (CFG.appts||[]).forEach(e=>{if(e.date===ds&&e.text)allReminders.push({time:e.time||'09:00',text:e.text,featured:true,icon:'📋',schedule:true});});
-  if(dow===0)allReminders.push({time:'10:30',text:'Sunday morning',featured:false,icon:'☀️',schedule:true});
-  meds.forEach(r=>allReminders.push({...r,schedule:false}));
-  recurring.forEach(r=>{
-    const[sh,sm]=r.startTime.split(':').map(Number);
-    const[eh,em]=r.endTime.split(':').map(Number);
-    for(let m=sh*60+sm;m<=eh*60+em;m+=r.interval){
-      allReminders.push({time:String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'),text:r.text,featured:r.featured,icon:r.icon,schedule:false});
-    }
-  });
-  allReminders.sort((a,b)=>a.time.localeCompare(b.time));
-  displayReminders();displaySuggestions();
-}
-
-function displayCaregiver(){
-  const now=new Date(),h=now.getHours(),dow=now.getDay();
-  let name='',isNight=h>=19||h<7;
-  const heart=h>=8&&h<18?'💜':h>=18&&h<21?'💚':'❤️';
-  if(isNight){
-    let nd=dow;
-    if(h<7){const y=new Date(now);y.setDate(y.getDate()-1);nd=y.getDay();}
-    name=(CFG.nightCaregiver||'');
-  } else {
-    name=(CFG.caregivers&&CFG.caregivers[dow])||'';
-  }
-  const el=document.getElementById('caregiverName');
-  el.innerHTML=name?(name+' is here '+(isNight?'tonight':'today')+' '+heart):'';
-  el.style.display=name?'block':'none';
-}
-
-function displayReminders(){
-  const now=new Date(),ct=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  const el=document.getElementById('remindersList');el.innerHTML='';
-  const items=allReminders.filter(r=>r.schedule);
-  if(!items.length){el.innerHTML='<div class="reminder-item">Nothing scheduled today</div>';return;}
-  items.forEach(r=>{
-    const d=document.createElement('div');d.className='reminder-item';
-    if(r.time<ct)d.classList.add('past-event');
-    d.innerHTML='<span class="reminder-time">'+r.icon+' '+fmt12(r.time)+'</span><span>'+r.text+'</span>';
-    el.appendChild(d);
-  });
-}
-
-function displaySuggestions(){
-  const today=new Date(),dow=today.getDay(),m=today.getMonth()+1,d=today.getDate(),h=today.getHours();
-  const el=document.getElementById('suggestionsList');el.innerHTML='';
-  const {holidays}=buildReminders();
-  let all=[];
-  const hol=holidays.find(x=>x.month===m&&x.day===d);
-  if(hol){all.push({text:hol.text,icon:hol.emoji,color:(h>=21||h<8)?'#666':hol.color,isHoliday:true});}
-  all.push({text:'Remember to breathe deeply',icon:'🧘'});
-  if(dow===1||dow===4)all.push({text:'Call a friend?',icon:'💬'});
-  const show=all.slice(0,3);
-  show.forEach(s=>{
-    const d=document.createElement('div');d.className='reminder-item';
-    const cs=s.isHoliday?'style="color:'+s.color+';"':'';
-    d.innerHTML='<span '+cs+'>'+s.icon+' '+s.text+'</span>';
-    el.appendChild(d);
-  });
-}
-
-function fmt12(t){const[h,m]=t.split(':').map(Number);return (h%12||12)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM');}
-
-function checkReminders(){
-  if(activeFeature)return;
-  const ct=String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2,'0');
-  const fr=allReminders.find(r=>r.time===ct&&r.featured);
-  if(fr)showFeatured(fr);
-}
-
-function generateChime(){
-  try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.setValueAtTime(800,ac.currentTime);o.frequency.exponentialRampToValueAtTime(400,ac.currentTime+0.3);g.gain.setValueAtTime(0.3,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ac.currentTime+0.3);o.start(ac.currentTime);o.stop(ac.currentTime+0.3);}catch(e){}
-}
-
-async function showFeatured(r){
-  activeFeature=r;
-  const ov=document.getElementById('featuredOverlay');
-  document.getElementById('featuredIcon').textContent=r.icon;
-  document.getElementById('featuredTime').textContent=fmt12(r.time);
-  document.getElementById('featuredText').textContent=r.text;
-  ov.classList.add('active');generateChime();
-  setTimeout(()=>{ov.classList.remove('active');activeFeature=null;displayReminders();},FEATURED_DURATION*60*1000);
-}
-
-function checkRefresh(){
-  const now=new Date(),h=now.getHours(),m=now.getMinutes();
-  if(h===0&&m===0&&!activeFeature){location.reload();return;}
-  if(h>=8&&h<22&&Date.now()-lastRefreshCheck>=15*60*1000&&!activeFeature){lastRefreshCheck=Date.now();location.reload();}
-}
-
-function init(){
-  updateTime();updateWeather();generateReminders();displayCaregiver();
-  setInterval(updateTime,1000);
-  setInterval(checkRefresh,60000);
-  setInterval(updateWeather,30*60*1000);
-  setInterval(()=>{if(new Date().getHours()===0&&new Date().getMinutes()===0)generateReminders();},60000);
-}
+const DS=8,ES=18,NS=21,FD=3;
+let AR=[],AF=null,LR=Date.now();
+function uMode(){const h=new Date().getHours(),b=document.body;b.classList.remove('day-mode','evening-mode','night-mode');h>=DS&&h<ES?b.classList.add('day-mode'):h>=ES&&h<NS?b.classList.add('evening-mode'):b.classList.add('night-mode');}
+function uTime(){const n=new Date();document.getElementById('time').textContent=n.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});document.getElementById('date').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});uMode();dispCG();chkR();if(window.wc!==undefined)document.getElementById('wi').textContent=wInfo(window.wc).icon;}
+async function updW(){try{const g=await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(C.zip||'20904')+'&count=1&language=en&format=json');const gd=await g.json();if(gd.results&&gd.results.length>0){const{latitude:la,longitude:lo}=gd.results[0];const w=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+la+'&longitude='+lo+'&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto');const wd=await w.json();document.getElementById('temp').textContent=Math.round(wd.current.temperature_2m)+'°F';const wi=wInfo(wd.current.weather_code);document.getElementById('wi').textContent=wi.icon;document.getElementById('wd').textContent=wi.description;window.wc=wd.current.weather_code;}}catch(e){document.getElementById('wd').textContent='Weather unavailable';}}
+function wInfo(code){const isN=new Date().getHours()>=20||new Date().getHours()<6;const m={0:{icon:isN?'🌙':'☀️',description:'Clear sky'},1:{icon:isN?'🌙':'🌤️',description:'Mainly clear'},2:{icon:isN?'☁️':'⛅',description:'Partly cloudy'},3:{icon:'☁️',description:'Overcast'},45:{icon:'🌫️',description:'Foggy'},51:{icon:'🌦️',description:'Light drizzle'},61:{icon:'🌧️',description:'Light rain'},63:{icon:'🌧️',description:'Rain'},65:{icon:'🌧️',description:'Heavy rain'},71:{icon:'🌨️',description:'Light snow'},73:{icon:'🌨️',description:'Snow'},80:{icon:'🌦️',description:'Showers'},95:{icon:'⛈️',description:'Thunderstorm'}};return m[code]||{icon:isN?'🌙':'🌤️',description:'Unknown'};}
+function genR(){AR=[];const today=new Date(),dow=today.getDay(),ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');(C.appts||[]).forEach(e=>{if(e.date===ds&&e.text)AR.push({time:e.time||'09:00',text:e.text,featured:true,icon:'📋',sch:true});});if(dow===0)AR.push({time:'10:30',text:'Sunday morning',featured:false,icon:'☀️',sch:true});[{t:C.medMorning||'08:00',x:'Morning medication'},{t:C.medAfternoon||'13:00',x:'Afternoon medication'},{t:C.medEvening||'18:00',x:'Evening medication'}].forEach(r=>AR.push({time:r.t,text:r.x,featured:true,icon:'💊',sch:false}));[{iv:60,s:'11:00',e:'17:00',x:'Take a drink of water',icon:'💧'},{iv:135,s:'12:45',e:'17:45',x:'Move your arms and legs',icon:'🤸'}].forEach(r=>{const[sh,sm]=r.s.split(':').map(Number);const[eh,em]=r.e.split(':').map(Number);for(let m=sh*60+sm;m<=eh*60+em;m+=r.iv)AR.push({time:String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'),text:r.x,featured:true,icon:r.icon,sch:false});});AR.sort((a,b)=>a.time.localeCompare(b.time));dispR();dispS();}
+function dispCG(){const now=new Date(),h=now.getHours(),dow=now.getDay();let name='',isN=h>=19||h<7;const heart=h>=8&&h<18?'💜':h>=18&&h<21?'💚':'❤️';if(isN){let nd=dow;if(h<7){const y=new Date(now);y.setDate(y.getDate()-1);nd=y.getDay();}name=C.nightCaregiver||'';}else{name=(C.caregivers&&C.caregivers[dow])||'';}const el=document.getElementById('cgn');el.innerHTML=name?name+' is here '+(isN?'tonight':'today')+' '+heart:'';el.style.display=name?'block':'none';}
+function dispR(){const now=new Date(),ct=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');const el=document.getElementById('rl');el.innerHTML='';const items=AR.filter(r=>r.sch);if(!items.length){el.innerHTML='<div class="reminder-item">Nothing scheduled today</div>';return;}items.forEach(r=>{const d=document.createElement('div');d.className='reminder-item';if(r.time<ct)d.classList.add('past-event');d.innerHTML='<span class="reminder-time">'+r.icon+' '+f12(r.time)+'</span><span>'+r.text+'</span>';el.appendChild(d);});}
+function dispS(){const today=new Date(),dow=today.getDay(),mo=today.getMonth()+1,dy=today.getDate(),h=today.getHours();const el=document.getElementById('sl');el.innerHTML='';let all=[];const hol=HOLS.find(x=>x.m===mo&&x.d===dy);if(hol)all.push({text:hol.t,icon:hol.e,color:(h>=21||h<8)?'#666':hol.c,isH:true});all.push({text:'Remember to breathe deeply',icon:'🧘'});if(dow===1||dow===4)all.push({text:'Call a friend?',icon:'💬'});all.slice(0,3).forEach(s=>{const d=document.createElement('div');d.className='reminder-item';const cs=s.isH?'style="color:'+s.color+';"':'';d.innerHTML='<span '+cs+'>'+s.icon+' '+s.text+'</span>';el.appendChild(d);});}
+function f12(t){const[h,m]=t.split(':').map(Number);return(h%12||12)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM');}
+function chkR(){if(AF)return;const ct=String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2,'0');const fr=AR.find(r=>r.time===ct&&r.featured);if(fr)showF(fr);}
+function chime(){try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.setValueAtTime(800,ac.currentTime);o.frequency.exponentialRampToValueAtTime(400,ac.currentTime+0.3);g.gain.setValueAtTime(0.3,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.01,ac.currentTime+0.3);o.start(ac.currentTime);o.stop(ac.currentTime+0.3);}catch(e){}}
+async function showF(r){AF=r;const ov=document.getElementById('fo');document.getElementById('fi').textContent=r.icon;document.getElementById('ft').textContent=f12(r.time);document.getElementById('fx').textContent=r.text;ov.classList.add('active');chime();setTimeout(()=>{ov.classList.remove('active');AF=null;dispR();},FD*60*1000);}
+function chkRefresh(){const now=new Date(),h=now.getHours(),m=now.getMinutes();if(h===0&&m===0&&!AF){location.reload();return;}if(h>=8&&h<22&&Date.now()-LR>=15*60*1000&&!AF){LR=Date.now();location.reload();}}
+function init(){uTime();updW();genR();dispCG();setInterval(uTime,1000);setInterval(chkRefresh,60000);setInterval(updW,30*60*1000);setInterval(()=>{if(new Date().getHours()===0&&new Date().getMinutes()===0)genR();},60000);}
 window.addEventListener('load',init);
-<\/script>
-</body>
-</html>`;
+<\/script></body></html>`;
 }
 
 function render(){
   const app=document.getElementById('app');
-  const dots=Array.from({length:TOTAL},(_,i)=>{
-    const cls=i+1<step?'done':i+1===step?'active':'';
-    return '<div class="pdot '+cls+'"></div>';
-  }).join('');
-  let content='';
+  const dots=Array.from({length:TOTAL},(_,i)=>`<div class="pdot ${i+1<step?'done':i+1===step?'active':''}"></div>`).join('');
+  let c='';
 
-  if(step===1){
-    content=`
-      <div class="step-label">Step 1 of ${TOTAL}</div>
-      <div class="step-title">About your loved one</div>
-      <div class="step-desc">This personalizes the display. Zip code pulls live weather automatically every 30 minutes.</div>
-      <div class="field">
-        <label>What should the display call them?</label>
-        <input type="text" id="f-name" value="${data.displayName}" placeholder="e.g. Mom, Dorothy, Grandpa Joe"/>
-        <div class="hint">Appears in the caregiver greeting line</div>
-      </div>
-      <div class="field">
-        <label>Home zip code (for live weather)</label>
-        <input type="text" id="f-zip" value="${data.zip}" placeholder="e.g. 20904" maxlength="5"/>
-      </div>
-      <div class="feature-pill">✦ The downloaded file includes a built-in settings panel — update anytime, no code required</div>`;
-  }
+  if(step===1){c=`<div class="step-label">Step 1 of ${TOTAL}</div><div class="step-title">About your loved one</div><div class="step-desc">This personalizes the display. Zip code pulls live weather automatically every 30 minutes.</div><div class="pill">✦ The downloaded file includes a built-in settings panel — update anytime, no code required</div><div class="field"><label>What should the display call them?</label><input type="text" id="fn" value="${data.displayName}" placeholder="e.g. Mom, Dorothy, Grandpa Joe"/><div class="hint">Appears in the caregiver greeting</div></div><div class="field"><label>Home zip code (for live weather)</label><input type="text" id="fz" value="${data.zip}" placeholder="e.g. 20904" maxlength="5"/></div>`;}
 
   if(step===2){
-    const wkd=[1,2,3,4,5].map(i=>`<div><div class="day-label">${DAYS[i]}</div><input type="text" id="f-cg-${i}" value="${data.caregivers[i]}" placeholder="Name" style="text-align:center;padding:7px 4px;"/></div>`).join('');
-    const wknd=[6,0].map(i=>`<div><div class="day-label">${DAYS[i]}</div><input type="text" id="f-cg-${i}" value="${data.caregivers[i]}" placeholder="Name" style="text-align:center;padding:7px 4px;"/></div>`).join('');
-    content=`
-      <div class="step-label">Step 2 of ${TOTAL}</div>
-      <div class="step-title">Caregiver schedule</div>
-      <div class="step-desc">The display automatically shows the right name by day. Switches to the night caregiver at 7 PM.</div>
-      <div class="field"><label>Weekday caregivers</label><div class="grid5">${wkd}</div></div>
-      <div class="field"><label>Weekend caregivers</label><div class="grid2">${wknd}</div></div>
-      <div class="field"><label>Night caregiver (all nights)</label><input type="text" id="f-night" value="${data.nightCaregiver}" placeholder="Overnight caregiver name"/></div>`;
-  }
+    const wk=[1,2,3,4,5].map(i=>`<div><div class="day-label">${DAYS[i]}</div><input type="text" id="fc${i}" value="${data.caregivers[i]}" placeholder="Name" style="text-align:center;padding:7px 4px;"/></div>`).join('');
+    const we=[6,0].map(i=>`<div><div class="day-label">${DAYS[i]}</div><input type="text" id="fc${i}" value="${data.caregivers[i]}" placeholder="Name" style="text-align:center;padding:7px 4px;"/></div>`).join('');
+    c=`<div class="step-label">Step 2 of ${TOTAL}</div><div class="step-title">Caregiver schedule</div><div class="step-desc">The display shows the right name automatically by day. Switches to the night caregiver at 7 PM.</div><div class="field"><label>Weekday caregivers</label><div class="grid5">${wk}</div></div><div class="field"><label>Weekend caregivers</label><div class="grid2">${we}</div></div><div class="field"><label>Night caregiver (all nights)</label><input type="text" id="fni" value="${data.nightCaregiver}" placeholder="Overnight caregiver name"/></div>`;}
 
-  if(step===3){
-    content=`
-      <div class="step-label">Step 3 of ${TOTAL}</div>
-      <div class="step-title">Medication times</div>
-      <div class="step-desc">At each time, the display shows a full-screen reminder with a gentle chime. Set them to match your schedule.</div>
-      <div class="grid3">
-        <div class="field"><label>Morning</label><input type="time" id="f-med-am" value="${data.medMorning}"/></div>
-        <div class="field"><label>Afternoon</label><input type="time" id="f-med-pm" value="${data.medAfternoon}"/></div>
-        <div class="field"><label>Evening</label><input type="time" id="f-med-ev" value="${data.medEvening}"/></div>
-      </div>
-      <div class="info-box">Water reminders every hour and movement prompts every 2 hours are included automatically. You can adjust these anytime using the built-in settings panel in your downloaded file.</div>`;
-  }
+  if(step===3){c=`<div class="step-label">Step 3 of ${TOTAL}</div><div class="step-title">Medication times</div><div class="step-desc">At each time, a full-screen reminder appears with a gentle chime. Match these to your actual schedule.</div><div class="grid3"><div class="field"><label>Morning</label><input type="time" id="fma" value="${data.medMorning}"/></div><div class="field"><label>Afternoon</label><input type="time" id="fmp" value="${data.medAfternoon}"/></div><div class="field"><label>Evening</label><input type="time" id="fme" value="${data.medEvening}"/></div></div><div class="info-box">Water reminders every hour and movement prompts every 2 hours are included automatically. Adjust these anytime from the settings panel inside your downloaded file.</div>`;}
 
   if(step===4){
-    const apptF=data.appts.map((a,i)=>`
-      <div class="appt-block">
-        <div class="appt-num">Appointment ${i+1}${a.text?' — '+a.text.slice(0,28)+(a.text.length>28?'…':''):''}</div>
-        <div class="grid2" style="margin-bottom:10px;">
-          <div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Date</label><input type="date" id="f-appt-${i}-date" value="${a.date}"/></div>
-          <div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Time</label><input type="time" id="f-appt-${i}-time" value="${a.time}"/></div>
-        </div>
-        <div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Description</label><input type="text" id="f-appt-${i}-text" value="${a.text}" placeholder="e.g. Dr. Reilly follow-up at 3:00 PM"/></div>
-      </div>`).join('');
-    content=`
-      <div class="step-label">Step 4 of ${TOTAL}</div>
-      <div class="step-title">Upcoming appointments</div>
-      <div class="step-desc">These appear in the schedule and trigger a full-screen pop-up at the start time. Leave blank to skip — you can add more anytime from the settings panel inside the display.</div>
-      ${apptF}`;
-  }
+    const af=data.appts.map((a,i)=>`<div class="appt-block"><div class="appt-num">Appointment ${i+1}${a.text?' — '+a.text.slice(0,28)+(a.text.length>28?'…':''):''}</div><div class="grid2" style="margin-bottom:10px;"><div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Date</label><input type="date" id="fad${i}" value="${a.date}"/></div><div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Time</label><input type="time" id="fat${i}" value="${a.time}"/></div></div><div class="field" style="margin-bottom:0;"><label style="font-size:11px;">Description</label><input type="text" id="fax${i}" value="${a.text}" placeholder="e.g. Dr. Reilly follow-up at 3:00 PM"/></div></div>`).join('');
+    c=`<div class="step-label">Step 4 of ${TOTAL}</div><div class="step-title">Upcoming appointments</div><div class="step-desc">These appear in the schedule and pop up full-screen at start time. Add more anytime from the settings panel inside the display.</div>${af}`;}
 
-  if(step===5){
-    const n=data.displayName||'your loved one';
-    content=`
-      <div class="done-card">
-        <div style="font-size:40px;">💜</div>
-        <h3>Ready for ${n}</h3>
-        <p>Your Memory LUV Kit display is personalized and ready. Open the file in any browser, then cast or mirror to a TV or monitor.</p>
-      </div>
-      <div class="instructions">
-        <h4>First-time setup</h4>
-        <ol>
-          <li>Click Download — save the <strong>.html file</strong> anywhere on your computer</li>
-          <li>Double-click it to open in Chrome or Edge</li>
-          <li>Press <strong>F11</strong> (PC) or <strong>⌘ Ctrl F</strong> (Mac) for full screen</li>
-          <li>Cast or mirror to your TV or monitor — updates automatically 24/7</li>
-        </ol>
-      </div>
-      <div class="instructions">
-        <h4>Adding appointments or changing settings</h4>
-        <ol>
-          <li>Click the small <strong>⚙ button</strong> in the bottom-left corner of the display</li>
-          <li>A settings panel slides in — update caregivers, meds, or add new appointments</li>
-          <li>Click <strong>Save &amp; Update Display</strong> — changes appear instantly</li>
-          <li>Settings are remembered automatically on that device</li>
-        </ol>
-      </div>
-      <div style="text-align:center;margin-top:28px;">
-        <button class="btn btn-download" onclick="doDownload()">⬇ Download Memory LUV Kit</button>
-        <div style="font-size:11px;color:var(--taupe);margin-top:8px;">memory-luv-kit-${(data.displayName||'display').toLowerCase().replace(/\s+/g,'-')}.html</div>
-      </div>`;
-  }
+  if(step===5){const n=data.displayName||'your loved one';c=`<div class="done-card"><div style="font-size:40px;">💙</div><h3>Ready for ${n}</h3><p>Your Memory LUV Kit is personalized and ready. Open the file in any browser, then cast or mirror to a TV or monitor.</p></div><div class="instr"><h4>First-time setup</h4><ol><li>Click Download — save the <strong>.html file</strong> anywhere on your computer</li><li>Double-click it to open in Chrome or Edge</li><li>Press <strong>F11</strong> (PC) or <strong>⌘ Ctrl F</strong> (Mac) for full screen</li><li>Cast or mirror to your TV or monitor — it runs and updates automatically 24/7</li></ol></div><div class="instr"><h4>Adding appointments or changing settings</h4><ol><li>Click the small <strong>⚙ button</strong> in the bottom-left corner of the display</li><li>A settings panel slides in — update caregivers, meds, or appointments</li><li>Click <strong>Save &amp; Update Display</strong> — changes appear instantly</li><li>Settings are saved to this device automatically</li></ol></div><div style="text-align:center;margin-top:28px;"><button class="btn-dl" onclick="doDownload()">⬇ Download Memory LUV Kit</button><div style="font-size:11px;color:var(--taupe);margin-top:8px;">memory-luv-kit-${(data.displayName||'display').toLowerCase().replace(/\s+/g,'-')}.html</div></div>`;}
 
-  const back=step>1?`<button class="btn" onclick="goBack()">← Back</button>`:`<div></div>`;
-  const next=step<TOTAL?`<button class="btn btn-primary" onclick="goNext()">Continue →</button>`:`<div></div>`;
-  app.innerHTML=`<div class="progress">${dots}</div>${content}<div class="nav">${back}${next}</div>`;
+  const bk=step>1?`<button class="btn" onclick="goBack()">← Back</button>`:`<div></div>`;
+  const nx=step<TOTAL?`<button class="btn btn-primary" onclick="goNext()">Continue →</button>`:`<div></div>`;
+  app.innerHTML=`<div class="progress">${dots}</div>${c}<div class="nav">${bk}${nx}</div>`;
 }
 
 function collect(){
-  if(step===1){data.displayName=(document.getElementById('f-name')||{}).value||'';data.zip=(document.getElementById('f-zip')||{}).value||'';}
-  if(step===2){[0,1,2,3,4,5,6].forEach(i=>{const el=document.getElementById('f-cg-'+i);if(el)data.caregivers[i]=el.value;});data.nightCaregiver=(document.getElementById('f-night')||{}).value||'';}
-  if(step===3){data.medMorning=(document.getElementById('f-med-am')||{}).value||'08:00';data.medAfternoon=(document.getElementById('f-med-pm')||{}).value||'13:00';data.medEvening=(document.getElementById('f-med-ev')||{}).value||'18:00';}
-  if(step===4){data.appts=data.appts.map((_,i)=>({date:(document.getElementById('f-appt-'+i+'-date')||{}).value||'',time:(document.getElementById('f-appt-'+i+'-time')||{}).value||'',text:(document.getElementById('f-appt-'+i+'-text')||{}).value||''}));}
+  if(step===1){data.displayName=(document.getElementById('fn')||{}).value||'';data.zip=(document.getElementById('fz')||{}).value||'';}
+  if(step===2){[0,1,2,3,4,5,6].forEach(i=>{const el=document.getElementById('fc'+i);if(el)data.caregivers[i]=el.value;});data.nightCaregiver=(document.getElementById('fni')||{}).value||'';}
+  if(step===3){data.medMorning=(document.getElementById('fma')||{}).value||'08:00';data.medAfternoon=(document.getElementById('fmp')||{}).value||'13:00';data.medEvening=(document.getElementById('fme')||{}).value||'18:00';}
+  if(step===4){data.appts=data.appts.map((_,i)=>({date:(document.getElementById('fad'+i)||{}).value||'',time:(document.getElementById('fat'+i)||{}).value||'',text:(document.getElementById('fax'+i)||{}).value||''}));}
 }
 function goNext(){collect();step=Math.min(step+1,TOTAL);render();}
 function goBack(){collect();step=Math.max(step-1,1);render();}
 function doDownload(){
-  const html=generateDisplayHTML(data);
+  const html=genHTML(data);
   const blob=new Blob([html],{type:'text/html'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
+  const a=document.createElement('a');a.href=url;
   a.download='memory-luv-kit-'+(data.displayName||'display').toLowerCase().replace(/\s+/g,'-')+'.html';
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
 }
