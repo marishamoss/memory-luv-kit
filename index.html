@@ -197,7 +197,7 @@ body.evening-mode .featured-content,body.night-mode .featured-content{background
 .featured-icon{font-size:120px;margin-bottom:30px;}
 .featured-time{font-size:72px;font-weight:600;margin-bottom:20px;}
 .featured-text{font-size:64px;font-weight:500;line-height:1.3;}
-#cfg-btn{position:fixed;bottom:14px;left:14px;display:flex;align-items:center;gap:5px;padding:5px 11px 5px 9px;border-radius:16px;border:1px solid transparent;background:transparent;cursor:pointer;z-index:800;transition:opacity .2s,border-color .2s,background .2s;}
+#cfg-btn{position:fixed;bottom:14px;left:14px;display:flex;align-items:center;gap:5px;padding:5px 11px 5px 9px;border-radius:16px;border:1px solid transparent;background:transparent;cursor:pointer;z-index:1100;transition:opacity .2s,border-color .2s,background .2s;}
 #cfg-btn .cgi{font-size:14px;line-height:1;}
 #cfg-btn .cgl{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;line-height:1;}
 body.day-mode #cfg-btn{color:rgba(74,74,74,0.45);opacity:.4;}
@@ -331,6 +331,17 @@ body.night-mode #cfg-btn{color:rgba(120,120,120,0.3);opacity:.2;}
     <div id="p-events"></div>
     <button class="cadd" onclick="addEv()">+ Add event</button>
   </div>
+  <div class="cs"><div class="cst">Wellness reminders</div>
+    <div style="font-size:10px;color:#7A9BAD;margin-bottom:10px;line-height:1.5;">These reminders pop up automatically throughout the day. Turn either off if they become disruptive. Timing control is available in MemoryLUV Pro.</div>
+    <div class="sc-row">
+      <label for="rw-chk">💧 &nbsp;Drink water &nbsp;<span style="font-size:9px;color:#7A9BAD;">(every hour, 11 AM–5 PM)</span></label>
+      <label class="sc-toggle"><input type="checkbox" id="rw-chk"/><span class="sc-slider"></span></label>
+    </div>
+    <div class="sc-row">
+      <label for="rm-chk">🤸 &nbsp;Move &amp; stretch &nbsp;<span style="font-size:9px;color:#7A9BAD;">(every 2 hrs, noon–6 PM)</span></label>
+      <label class="sc-toggle"><input type="checkbox" id="rm-chk"/><span class="sc-slider"></span></label>
+    </div>
+  </div>
   <div class="cs"><div class="cst">Text size</div>
     <div class="sz-btns">
       <button id="ts-reg" class="sz-btn" onclick="setSize('regular')">Regular</button>
@@ -372,7 +383,8 @@ var SEED={
   medMorning:"${d.medMorning}",medAfternoon:"${d.medAfternoon}",medEvening:"${d.medEvening}",
   prompts:${promptsJ},
   events:[${apInit}],
-  theme:"${d.theme||'sage'}",textSize:"regular"
+  theme:"${d.theme||'sage'}",textSize:"regular",
+  remindWater:true,remindMove:true
 };
 var C;
 try{
@@ -475,8 +487,9 @@ function genR(){
   (C.events||[]).forEach(function(e){if(e.date===ds&&e.text)AR.push({time:e.time||'09:00',text:e.text,featured:true,icon:e.icon||'📋',sch:true});});
   [{t:C.medMorning||'08:00',x:'Morning medication'},{t:C.medAfternoon||'13:00',x:'Afternoon medication'},{t:C.medEvening||'18:00',x:'Evening medication'}]
     .forEach(function(r){AR.push({time:r.t,text:r.x,featured:true,icon:'💊',sch:false});});
-  [{iv:60,s:'11:00',e:'17:00',x:'Take a drink of water',icon:'💧'},{iv:135,s:'12:45',e:'17:45',x:'Move your arms and legs',icon:'🤸'}]
+  [{iv:60,s:'11:00',e:'17:00',x:'Take a drink of water',icon:'💧',flag:'remindWater'},{iv:135,s:'12:45',e:'17:45',x:'Move your arms and legs',icon:'🤸',flag:'remindMove'}]
     .forEach(function(r){
+      if(!C[r.flag])return;
       var sh=parseInt(r.s.split(':')[0]),sm=parseInt(r.s.split(':')[1]);
       var eh=parseInt(r.e.split(':')[0]),em=parseInt(r.e.split(':')[1]);
       for(var m=sh*60+sm;m<=eh*60+em;m+=r.iv)
@@ -547,6 +560,8 @@ function pop(){
   document.getElementById('me').value=C.medEvening||'18:00';
   rPr();
   rEv(C.events||[]);
+  var rwChk=document.getElementById('rw-chk');if(rwChk)rwChk.checked=C.remindWater!==false;
+  var rmChk=document.getElementById('rm-chk');if(rmChk)rmChk.checked=C.remindMove!==false;
   setThemePanel(C.theme||'sage');
   setSize(C.textSize||'regular');
 }
@@ -601,6 +616,8 @@ function saveP(){
   C.prompts=[0,1,2].map(function(i){return{i:(document.getElementById('ppi'+i)||{}).value||'',t:(document.getElementById('ppt'+i)||{}).value||''};});
   var n=document.querySelectorAll('.ca').length;
   C.events=Array.from({length:n},function(_,i){return{date:(document.getElementById('evd'+i)||{}).value||'',time:(document.getElementById('evt'+i)||{}).value||'',icon:(document.getElementById('evi'+i)||{}).value||'📋',text:(document.getElementById('evx'+i)||{}).value||''};}).filter(function(e){return e.date&&e.text;});
+  var rwChk=document.getElementById('rw-chk');C.remindWater=rwChk?rwChk.checked:true;
+  var rmChk=document.getElementById('rm-chk');C.remindMove=rmChk?rmChk.checked:true;
   try{localStorage.setItem('luv_cfg',JSON.stringify(C));}catch(e){}
   closeP();applyTheme(C.theme);genR();dispCG();updW();
 }
