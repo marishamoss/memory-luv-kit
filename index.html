@@ -112,9 +112,9 @@ const TOTAL=5;
 
 // Theme definitions
 const THEMES={
-  sage:  {name:'Sage',    day:'#d4dbc1', ri:'#c5cdb0', heart_d:'💜', heart_e:'💚', heart_n:'❤️'},
-  gray:  {name:'Warm Gray',day:'#DDDBD5',ri:'#CCCAC4', heart_d:'🧡', heart_e:'💚', heart_n:'❤️'},
-  blush: {name:'Blush',  day:'#EDE0DA', ri:'#E0D0C8', heart_d:'💙', heart_e:'💚', heart_n:'❤️'}
+  sage:  {name:'Sage',     day:'#d4dbc1', ri:'#c5cdb0', heart_d:'<span style="color:#7B47C0;">\u2665</span>'},
+  gray:  {name:'Warm Gray',day:'#DDDBD5', ri:'#CCCAC4', heart_d:'<span style="color:#C4703A;">\u2665</span>'},
+  blush: {name:'Blush',   day:'#EDE0DA', ri:'#E0D0C8', heart_d:'<span style="color:#3A6A9A;">\u2665</span>'}
 };
 
 let step=1;
@@ -173,7 +173,7 @@ body.night-mode .time-section{border-bottom-color:#2a2a2a;}
   display:flex;align-items:center;justify-content:center;
   padding:17px 0 20px;margin-bottom:20px;border-bottom:2px solid;
 }
-body.day-mode .caregiver-section{color:#321d6b;border-bottom-color:var(--day-ri,#b5bd9a);}
+body.day-mode .caregiver-section{color:var(--cg-color,#4A1A6B);border-bottom-color:var(--day-ri,#b5bd9a);}
 body.evening-mode .caregiver-section{color:#d4dbc1;border-bottom-color:#404040;}
 body.night-mode .caregiver-section{color:#555;border-bottom-color:#2a2a2a;}
 .bottom-section{display:flex;gap:30px;flex:1;overflow:hidden;}
@@ -188,11 +188,11 @@ body.night-mode .reminder-item{background:#1a1a1a;}
 .reminder-time{font-weight:600;margin-right:15px;}
 .featured-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:none;justify-content:center;align-items:center;z-index:900;}
 .featured-overlay.active{display:flex;}
-body.day-mode .featured-overlay{background:rgba(212,219,193,.98);}
+body.day-mode .featured-overlay{background:var(--ov-bg,rgba(212,219,193,.98));}
 body.evening-mode .featured-overlay{background:rgba(42,42,42,.98);}
 body.night-mode .featured-overlay{background:rgba(10,10,10,.98);}
 .featured-content{text-align:center;padding:60px;border-radius:20px;max-width:80%;}
-body.day-mode .featured-content{background:#e8efd9;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+body.day-mode .featured-content{background:var(--card-bg,#e8efd9);box-shadow:0 20px 60px rgba(0,0,0,.15);}
 body.evening-mode .featured-content,body.night-mode .featured-content{background:#2a2a2a;}
 .featured-icon{font-size:120px;margin-bottom:30px;}
 .featured-time{font-size:72px;font-weight:600;margin-bottom:20px;}
@@ -345,9 +345,24 @@ body.night-mode #cfg-btn{color:rgba(120,120,120,0.3);opacity:.2;}
 var DAYS_S=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 var DAY_ORD=[1,2,3,4,5,6,0];
 var THEMES_D={
-  sage: {day:'#d4dbc1',ri:'#c5cdb0',hd:'💜',he:'💚',hn:'❤️'},
-  gray: {day:'#DDDBD5',ri:'#CCCAC4',hd:'🧡',he:'💚',hn:'❤️'},
-  blush:{day:'#EDE0DA',ri:'#E0D0C8',hd:'💙',he:'💚',hn:'❤️'}
+  sage: {
+    day:'#d4dbc1',ri:'#c5cdb0',
+    cg:'#4A1A6B',
+    hd:'#7B47C0',he:'#3A7A50',hn:'#888',
+    ov_bg:'rgba(212,219,193,.98)',card_bg:'#e8efd9'
+  },
+  gray: {
+    day:'#DDDBD5',ri:'#CCCAC4',
+    cg:'#7A3520',
+    hd:'#C4703A',he:'#3A7A50',hn:'#888',
+    ov_bg:'rgba(221,219,213,.98)',card_bg:'#E8E2D8'
+  },
+  blush:{
+    day:'#EDE0DA',ri:'#E0D0C8',
+    cg:'#1B3A5C',
+    hd:'#3A6A9A',he:'#3A7A50',hn:'#888',
+    ov_bg:'rgba(237,224,218,.98)',card_bg:'#EDE0DA'
+  }
 };
 var SEED={
   displayName:"${ea(name)}",zip:"${ea(zip)}",
@@ -386,6 +401,9 @@ function applyTheme(themeKey){
   var th=THEMES_D[themeKey]||THEMES_D.sage;
   document.documentElement.style.setProperty('--day-bg',th.day);
   document.documentElement.style.setProperty('--day-ri',th.ri);
+  document.documentElement.style.setProperty('--cg-color',th.cg);
+  document.documentElement.style.setProperty('--ov-bg',th.ov_bg);
+  document.documentElement.style.setProperty('--card-bg',th.card_bg);
 }
 
 function uMode(){
@@ -397,7 +415,8 @@ function uMode(){
 function getHeart(){
   var th=THEMES_D[C.theme||'sage']||THEMES_D.sage;
   var h=new Date().getHours();
-  return h>=DS2&&h<ES?th.hd:h>=ES&&h<NS?th.he:th.hn;
+  var col=h>=DS2&&h<ES?th.hd:h>=ES&&h<NS?th.he:th.hn;
+  return '<span style="color:'+col+';font-size:0.85em;">\u2665</span>';
 }
 
 function uTime(){
@@ -637,7 +656,7 @@ function render(){
       <div class="theme-swatch ${data.theme===k?'selected':''}" onclick="data.theme='${k}';render();">
         <div class="tsw" style="background:${v.day};"></div>
         <div class="tsw-name">${v.name}</div>
-        <div class="tsw-heart">${v.heart_d}</div>
+        <div class="tsw-heart" style="font-size:18px;">${v.heart_d}</div>
       </div>`).join('');
 
     c=`<div class="slabel">Step 2 of ${TOTAL}</div>
