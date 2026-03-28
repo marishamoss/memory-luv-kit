@@ -360,8 +360,11 @@ var SEED={
   theme:"${d.theme||'sage'}",textSize:"regular"
 };
 var C;
-try{var _s=localStorage.getItem('luv_cfg');C=_s?JSON.parse(_s):JSON.parse(JSON.stringify(SEED));}
-catch(e){C=JSON.parse(JSON.stringify(SEED));}
+try{
+  var _seed=JSON.parse(JSON.stringify(SEED));
+  var _s=localStorage.getItem('luv_cfg');
+  C=_s?Object.assign(_seed,JSON.parse(_s)):_seed;
+}catch(e){C=JSON.parse(JSON.stringify(SEED));}
 var HOLS=[
   {m:1,d:1,t:'Happy New Year!',e:'🎊',c:'#E8A840'},
   {m:1,d:20,t:'Happy MLK Jr. Day!',e:'✊🏾',c:'#800020'},
