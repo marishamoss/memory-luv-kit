@@ -470,13 +470,14 @@ function dispCG(){
   if(isN&&h<7){var y=new Date(now);y.setDate(y.getDate()-1);nd=y.getDay();}
   var el=document.getElementById('cgn');
   var heart=getHeart();
+  var tw=h>=5&&h<12?'this morning':h>=12&&h<19?'today':'tonight';
   if(C.selfCare){
-    el.innerHTML='Take good care of yourself today '+heart;
+    el.innerHTML='Take good care of yourself '+tw+' '+heart;
   }else{
     var sched=C.schedule&&C.schedule[nd]?C.schedule[nd]:{d:0,n:0};
     var idx=isN?(sched.n||0):(sched.d||0);
     var nm=(C.team&&C.team[idx])||'';
-    el.innerHTML=nm?nm+' is here '+(isN?'tonight':'today')+' '+heart:'Take good care of yourself today '+heart;
+    el.innerHTML=nm?nm+' is here '+tw+' '+heart:'Take good care of yourself '+tw+' '+heart;
   }
 }
 
