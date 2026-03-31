@@ -122,7 +122,15 @@ let data={
   displayName:'',zip:'',
   selfCare:false,
   team:['','','',''],
-  schedule:{0:{d:0,n:0},1:{d:0,n:0},2:{d:0,n:0},3:{d:0,n:0},4:{d:0,n:0},5:{d:0,n:0},6:{d:0,n:0}},
+  schedule:{
+    0:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]},
+    1:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]},
+    2:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]},
+    3:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]},
+    4:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]},
+    5:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]},
+    6:{blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}]}
+  },
   medMorning:'08:00',medAfternoon:'13:00',medEvening:'18:00',
   prompts:[{i:'🧘',t:'Remember to breathe deeply'},{i:'',t:''},{i:'',t:''}],
   events:[{date:'',time:'',icon:'📋',text:''},{date:'',time:'',icon:'📋',text:''},{date:'',time:'',icon:'📋',text:''}],
@@ -137,7 +145,12 @@ function genHTML(d){
   const zip=d.zip||'20904';
   const th=THEMES[d.theme||'sage'];
   const teamJ='['+d.team.map(t=>'"'+ea(t)+'"').join(',')+']';
-  const schedJ='{'+[0,1,2,3,4,5,6].map(k=>k+':{d:'+(d.schedule[k]?d.schedule[k].d||0:0)+',n:'+(d.schedule[k]?d.schedule[k].n||0:0)+'}').join(',')+'}';
+  const schedJ='{'+[0,1,2,3,4,5,6].map(k=>{
+    const day=d.schedule[k];
+    const blocks=day&&day.blocks?day.blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}];
+    const bStr=blocks.map(b=>'{person:'+(b.person||0)+',start:"'+(b.start||'')+'",end:"'+(b.end||'')+'"}').join(',');
+    return k+':{blocks:['+bStr+']}';
+  }).join(',')+'}';
   const promptsJ='['+d.prompts.map(p=>'{i:"'+ea(p.i||'')+'",t:"'+ea(p.t||'')+'"}').join(',')+']';
   const evJ='['+d.events.filter(e=>e.date&&e.text).map(e=>'{date:"'+e.date+'",time:"'+(e.time||'09:00')+'",icon:"'+ea(e.icon||'📋')+'",text:"'+ea(e.text)+'"}').join(',')+']';
   const cgInit=d.team.map(t=>'"'+ea(t)+'"').join(',');
@@ -297,9 +310,10 @@ body.night-mode #cfg-btn{color:rgba(120,120,120,0.3);opacity:.2;}
   </div>
   <div class="cs"><div class="cst">Care team</div>
     <div class="sc-row">
-      <label for="sc-chk">I care for myself / no care team</label>
+      <label for="sc-chk">Show default greeting when no one is scheduled</label>
       <label class="sc-toggle"><input type="checkbox" id="sc-chk" onchange="toggleSelfCare()"/><span class="sc-slider"></span></label>
     </div>
+    <div style="font-size:10px;color:#7A9BAD;margin-bottom:10px;line-height:1.5;">When on, shows "Take good care of yourself" during any unscheduled time. When off, shows no caregiver message.</div>
     <div id="care-team-fields">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:6px;">
         <div class="cf" style="margin:0;"><label>Person 1</label><input id="pt0" type="text" oninput="updSD()"/></div>
@@ -310,8 +324,8 @@ body.night-mode #cfg-btn{color:rgba(120,120,120,0.3);opacity:.2;}
       <div style="font-size:10px;color:#7A9BAD;margin-bottom:10px;">Leave unused slots blank.</div>
     </div>
   </div>
-  <div class="cs" id="sched-section"><div class="cst">Care Team Schedule</div>
-    <div style="font-size:10px;color:#7A9BAD;margin-bottom:8px;">Day shift ends at 7 PM. Select who covers each shift.</div>
+  <div class="cs" id="sched-section"><div class="cst">Weekly schedule</div>
+    <div style="font-size:10px;color:#7A9BAD;margin-bottom:8px;line-height:1.5;">This repeats every week. Set up to two time blocks per day. Leave start empty to skip a block. Leave end empty and it runs to midnight. For one-time visits, use Events below.</div>
     <div id="p-sched"></div>
   </div>
   <div class="cs"><div class="cst">Medication reminders</div>
@@ -428,7 +442,7 @@ function getHeart(){
   var th=THEMES_D[C.theme||'sage']||THEMES_D.sage;
   var h=new Date().getHours();
   var col=h>=DS2&&h<ES?th.hd:h>=ES&&h<NS?th.he:th.hn;
-  return '<span style="color:'+col+';font-size:0.85em;">\u2665</span>';
+  return '&nbsp;<span style="color:'+col+';font-size:0.85em;">\u2665</span>';
 }
 
 function uTime(){
@@ -464,21 +478,28 @@ function wInfo(code){
 }
 
 function dispCG(){
-  var now=new Date(),h=now.getHours(),dow=now.getDay();
-  var isN=h>=19||h<7;
-  var nd=dow;
-  if(isN&&h<7){var y=new Date(now);y.setDate(y.getDate()-1);nd=y.getDay();}
+  var now=new Date(),h=now.getHours(),mn=now.getMinutes(),dow=now.getDay();
   var el=document.getElementById('cgn');
   var heart=getHeart();
   var tw=h>=5&&h<12?'this morning':h>=12&&h<19?'today':'tonight';
   if(C.selfCare){
-    el.innerHTML='Take good care of yourself '+tw+' '+heart;
-  }else{
-    var sched=C.schedule&&C.schedule[nd]?C.schedule[nd]:{d:0,n:0};
-    var idx=isN?(sched.n||0):(sched.d||0);
-    var nm=(C.team&&C.team[idx])||'';
-    el.innerHTML=nm?nm+' is here '+tw+' '+heart:'Take good care of yourself '+tw+' '+heart;
+    el.innerHTML='Take good care of yourself '+tw+heart;return;
   }
+  var daySchedule=C.schedule&&C.schedule[dow]?C.schedule[dow]:{blocks:[]};
+  var blocks=daySchedule.blocks||[];
+  var nowMins=h*60+mn;
+  var nm='';
+  for(var i=0;i<blocks.length;i++){
+    var b=blocks[i];
+    if(!b.start)continue;
+    var sH=parseInt(b.start.split(':')[0]),sM=parseInt(b.start.split(':')[1]);
+    var startMins=sH*60+sM;
+    var endMins=b.end?parseInt(b.end.split(':')[0])*60+parseInt(b.end.split(':')[1]):24*60;
+    if(nowMins>=startMins&&nowMins<endMins){
+      nm=(C.team&&C.team[b.person])||'';break;
+    }
+  }
+  el.innerHTML=nm?nm+' is here '+tw+heart:'Take good care of yourself '+tw+heart;
 }
 
 function genR(){
@@ -544,9 +565,8 @@ function toggleSelfCare(){
   if(!chk)return;
   C.selfCare=chk.checked;
   var fields=document.getElementById('care-team-fields');
-  var sched=document.getElementById('sched-section');
   if(fields)fields.style.display=chk.checked?'none':'block';
-  if(sched)sched.style.display=chk.checked?'none':'block';
+  // Schedule always stays visible so caregivers can verify what's set up
 }
 
 function pop(){
@@ -570,20 +590,39 @@ function pop(){
 function rSD(){
   var c=document.getElementById('p-sched');if(!c)return;
   var names=[0,1,2,3].map(function(i){var el=document.getElementById('pt'+i);return el?(el.value||'Person '+(i+1)):((C.team&&C.team[i])||'Person '+(i+1));});
-  var h='<table class="cs-table"><thead><tr><th></th><th>Day</th><th>Night</th></tr></thead><tbody>';
+  var h='';
   DAY_ORD.forEach(function(dow){
-    var curD=C.schedule&&C.schedule[dow]?C.schedule[dow].d:0;
-    var curN=C.schedule&&C.schedule[dow]?C.schedule[dow].n:0;
-    var opts=names.map(function(n,i){return'<option value="'+i+'"'+(i==curD?' selected':'')+'>'+n+'</option>';}).join('');
-    var opN=names.map(function(n,i){return'<option value="'+i+'"'+(i==curN?' selected':'')+'>'+n+'</option>';}).join('');
-    h+='<tr><td>'+DAYS_S[dow]+'</td><td><select id="sd'+dow+'">'+opts+'</select></td><td><select id="sn'+dow+'">'+opN+'</select></td></tr>';
+    var day=C.schedule&&C.schedule[dow]?C.schedule[dow]:{blocks:[]};
+    var blocks=day.blocks||[{person:0,start:'',end:''},{person:0,start:'',end:''}];
+    var b1=blocks[0]||{person:0,start:'',end:''};
+    var b2=blocks[1]||{person:0,start:'',end:''};
+    var opts1=names.map(function(n,i){return'<option value="'+i+'"'+(i==b1.person?' selected':'')+'>'+n+'</option>';}).join('');
+    var opts2=names.map(function(n,i){return'<option value="'+i+'"'+(i==b2.person?' selected':'')+'>'+n+'</option>';}).join('');
+    h+='<div style="margin-bottom:10px;padding:8px;background:#E4EFF5;border-radius:8px;">'
+      +'<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#2D6B8A;margin-bottom:6px;">'+DAYS_S[dow]+'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr auto auto;gap:5px;align-items:center;margin-bottom:4px;">'
+      +'<select id="sp'+dow+'_0" style="padding:5px;border:1px solid #B8D4E0;border-radius:6px;font-size:11px;font-family:inherit;background:#fff;">'+opts1+'</select>'
+      +'<input type="time" id="ss'+dow+'_0" value="'+(b1.start||'')+'" style="padding:5px;border:1px solid #B8D4E0;border-radius:6px;font-size:11px;font-family:inherit;background:#fff;width:90px;">'
+      +'<input type="time" id="se'+dow+'_0" value="'+(b1.end||'')+'" style="padding:5px;border:1px solid #B8D4E0;border-radius:6px;font-size:11px;font-family:inherit;background:#fff;width:90px;">'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr auto auto;gap:5px;align-items:center;">'
+      +'<select id="sp'+dow+'_1" style="padding:5px;border:1px solid #B8D4E0;border-radius:6px;font-size:11px;font-family:inherit;background:#fff;">'+opts2+'</select>'
+      +'<input type="time" id="ss'+dow+'_1" value="'+(b2.start||'')+'" style="padding:5px;border:1px solid #B8D4E0;border-radius:6px;font-size:11px;font-family:inherit;background:#fff;width:90px;">'
+      +'<input type="time" id="se'+dow+'_1" value="'+(b2.end||'')+'" style="padding:5px;border:1px solid #B8D4E0;border-radius:6px;font-size:11px;font-family:inherit;background:#fff;width:90px;">'
+      +'</div>'
+      +'<div style="font-size:9px;color:#7A9BAD;margin-top:4px;">Person · Start → End (leave start empty to skip)</div>'
+      +'</div>';
   });
-  c.innerHTML=h+'</tbody></table>';
+  c.innerHTML=h;
 }
 
 function updSD(){
   var names=[0,1,2,3].map(function(i){var el=document.getElementById('pt'+i);return el?(el.value||'Person '+(i+1)):'Person '+(i+1);});
-  [0,1,2,3,4,5,6].forEach(function(dow){['sd','sn'].forEach(function(px){var sel=document.getElementById(px+dow);if(!sel)return;var cur=sel.value;sel.innerHTML=names.map(function(n,i){return'<option value="'+i+'"'+(i==cur?' selected':'')+'>'+n+'</option>';}).join('');});});
+  [0,1,2,3,4,5,6].forEach(function(dow){[0,1].forEach(function(b){
+    var sel=document.getElementById('sp'+dow+'_'+b);if(!sel)return;
+    var cur=sel.value;
+    sel.innerHTML=names.map(function(n,i){return'<option value="'+i+'"'+(i==cur?' selected':'')+'>'+n+'</option>';}).join('');
+  });});
 }
 
 function rPr(){
@@ -610,7 +649,13 @@ function saveP(){
   var scChk=document.getElementById('sc-chk');C.selfCare=scChk?scChk.checked:false;
   C.team=[0,1,2,3].map(function(i){return(document.getElementById('pt'+i)||{}).value||'';});
   C.schedule={};
-  [0,1,2,3,4,5,6].forEach(function(i){C.schedule[i]={d:parseInt((document.getElementById('sd'+i)||{}).value)||0,n:parseInt((document.getElementById('sn'+i)||{}).value)||0};});
+  [0,1,2,3,4,5,6].forEach(function(i){
+    C.schedule[i]={blocks:[0,1].map(function(b){return{
+      person:parseInt((document.getElementById('sp'+i+'_'+b)||{}).value)||0,
+      start:(document.getElementById('ss'+i+'_'+b)||{}).value||'',
+      end:(document.getElementById('se'+i+'_'+b)||{}).value||''
+    };})};
+  });
   C.medMorning=(document.getElementById('ma')||{}).value||'08:00';
   C.medAfternoon=(document.getElementById('mp')||{}).value||'13:00';
   C.medEvening=(document.getElementById('me')||{}).value||'18:00';
@@ -644,7 +689,7 @@ window.addEventListener('load',init);
 // ── Configurator ──────────────────────────────────────────────────────────
 function updateConfigDropdowns(){
   const names=[0,1,2,3].map(i=>{const el=document.getElementById('ft'+i);return el?(el.value.trim()||'Person '+(i+1)):'Person '+(i+1);});
-  DO.forEach(dow=>{['fsd','fsn'].forEach(px=>{const sel=document.getElementById(px+dow);if(!sel)return;const cur=sel.value;sel.innerHTML=names.map((n,i)=>'<option value="'+i+'"'+(i==cur?' selected':'')+'>'+n+'</option>').join('');});});
+  DO.forEach(dow=>{[0,1].forEach(b=>{const sel=document.getElementById('fp'+dow+'_'+b);if(!sel)return;const cur=sel.value;sel.innerHTML=names.map((n,i)=>'<option value="'+i+'"'+(i==cur?' selected':'')+'>'+n+'</option>').join('');});});
 }
 
 function toggleSelfCareConfig(){
@@ -653,6 +698,7 @@ function toggleSelfCareConfig(){
   data.selfCare=chk.checked;
   const fields=document.getElementById('fsc-fields');
   if(fields)fields.style.display=chk.checked?'none':'block';
+  // Schedule block always stays visible
 }
 
 function render(){
@@ -685,31 +731,41 @@ function render(){
   }
 
   if(step===3){
-    const wk=[1,2,3,4,5].map(i=>`<div><div style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--soft);text-align:center;margin-bottom:4px;">${DS[i]}</div><input type="text" id="ft${i}" value="${ea(data.team[i]||'')}" placeholder="Name" style="text-align:center;padding:7px 4px;" oninput="updateConfigDropdowns()"/></div>`).join('');
-    const we=[6,0].map(i=>`<div><div style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--soft);text-align:center;margin-bottom:4px;">${DS[i]}</div><input type="text" id="ft${i}" value="${ea(data.team[i]||'')}" placeholder="Name" style="text-align:center;padding:7px 4px;" oninput="updateConfigDropdowns()"/></div>`).join('');
     const teamNames=data.team.map((t,i)=>t||'Person '+(i+1));
-    const schedRows=DO.map(dow=>{
-      const curD=data.schedule[dow]?data.schedule[dow].d:0;
-      const curN=data.schedule[dow]?data.schedule[dow].n:0;
-      const opts=teamNames.map((n,i)=>`<option value="${i}"${i===curD?' selected':''}>${n}</option>`).join('');
-      const optsN=teamNames.map((n,i)=>`<option value="${i}"${i===curN?' selected':''}>${n}</option>`).join('');
-      return `<tr><td>${DS[dow]}</td><td><select id="fsd${dow}" class="sched-sel">${opts}</select></td><td><select id="fsn${dow}" class="sched-sel">${optsN}</select></td></tr>`;
+    const schedBlocks=DO.map(dow=>{
+      const day=data.schedule[dow];
+      const blocks=day&&day.blocks?day.blocks:[{person:0,start:'',end:''},{person:0,start:'',end:''}];
+      const rows=[0,1].map(b=>{
+        const bl=blocks[b]||{person:0,start:'',end:''};
+        const opts=teamNames.map((n,i)=>`<option value="${i}"${i===bl.person?' selected':''}>${n}</option>`).join('');
+        return `<div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;align-items:center;margin-bottom:4px;">
+          <select id="fp${dow}_${b}" style="padding:6px 4px;border:1.5px solid var(--rule);border-radius:8px;font-family:'Quicksand',sans-serif;font-size:11px;background:var(--bg);">${opts}</select>
+          <input type="time" id="fs${dow}_${b}" value="${bl.start||''}" style="padding:6px 4px;border:1.5px solid var(--rule);border-radius:8px;font-size:11px;font-family:'Quicksand',sans-serif;background:var(--bg);">
+          <input type="time" id="fe${dow}_${b}" value="${bl.end||''}" style="padding:6px 4px;border:1.5px solid var(--rule);border-radius:8px;font-size:11px;font-family:'Quicksand',sans-serif;background:var(--bg);">
+        </div>`;
+      }).join('');
+      return `<div style="margin-bottom:10px;padding:10px;background:var(--bg);border-radius:10px;border:1.5px solid var(--rule);">
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--brand);margin-bottom:6px;">${DS[dow]}</div>
+        ${rows}
+        <div style="font-size:9px;color:var(--soft);margin-top:2px;">Person · Start time → End time (leave start empty to skip row)</div>
+      </div>`;
     }).join('');
 
     c=`<div class="slabel">Step 3 of ${TOTAL}</div>
     <div class="stitle">Care team</div>
-    <div class="sdesc">Enter up to four caregivers and assign each day. Or toggle on if your loved one is self-caring.</div>
+    <div class="sdesc">Enter up to four caregivers and set their recurring weekly time blocks. For one-time visits, use Events in the next step.</div>
     <div class="toggle-row">
       <label class="toggle"><input type="checkbox" id="fsc" ${data.selfCare?'checked':''} onchange="toggleSelfCareConfig()"/><span class="toggle-slider"></span></label>
-      <label for="fsc">I care for myself / no care team</label>
+      <label for="fsc">Show default greeting when no one is scheduled</label>
     </div>
     <div id="fsc-fields" style="display:${data.selfCare?'none':'block'};">
       <div class="subsec">Team members</div>
       <div class="g2">${[0,1,2,3].map(i=>`<div class="field" style="margin-bottom:10px;"><label>Person ${i+1}</label><input type="text" id="ft${i}" value="${ea(data.team[i]||'')}" placeholder="Caregiver name" oninput="updateConfigDropdowns()"/></div>`).join('')}</div>
       <div class="hint" style="margin-bottom:14px;">Leave unused slots blank.</div>
-      <div class="subsec">Care team schedule</div>
-      <table class="sched"><thead><tr><th></th><th>Day shift</th><th>Night shift</th></tr></thead><tbody>${schedRows}</tbody></table>
-    </div>`;
+    </div>
+    <div class="subsec">Weekly schedule <span style="font-weight:400;font-family:'Quicksand',sans-serif;font-size:10px;color:var(--soft);text-transform:none;letter-spacing:0;">— repeats every week</span></div>
+    <div style="font-size:11px;color:var(--soft);margin-bottom:10px;line-height:1.6;">Set up to two time blocks per day. Leave start empty to skip. Leave end empty and it runs to midnight.</div>
+    ${schedBlocks}`;
   }
 
   if(step===4){
@@ -785,7 +841,13 @@ function collect(){
   if(step===3){
     const chk=document.getElementById('fsc');data.selfCare=chk?chk.checked:false;
     [0,1,2,3].forEach(i=>{const el=document.getElementById('ft'+i);if(el)data.team[i]=el.value;});
-    DO.forEach(dow=>{data.schedule[dow]={d:parseInt((document.getElementById('fsd'+dow)||{}).value)||0,n:parseInt((document.getElementById('fsn'+dow)||{}).value)||0};});
+    DO.forEach(dow=>{
+      data.schedule[dow]={blocks:[0,1].map(b=>({
+        person:parseInt((document.getElementById('fp'+dow+'_'+b)||{}).value)||0,
+        start:(document.getElementById('fs'+dow+'_'+b)||{}).value||'',
+        end:(document.getElementById('fe'+dow+'_'+b)||{}).value||''
+      }))};
+    });
   }
   if(step===4){
     data.medMorning=(document.getElementById('fma')||{}).value||'08:00';
