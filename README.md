@@ -14,7 +14,7 @@ At a glance, the display shows:
 - **Current time** — large, clear, always updating
 - **Full date** — day of week, month, date, and year, always visible
 - **Live weather** — pulls automatically from your zip code every 30 minutes
-- **Today's caregiver** — the right name shows automatically based on the day and shift; switches to the night caregiver at 7 PM. If no care team is configured, shows a warm daily greeting instead.
+- **Today's caregiver** — the right name shows automatically based on your configured schedule for each day. If no one is scheduled or no care team is configured, shows a warm daily greeting instead.
 - **Today's schedule** — upcoming events with full-screen pop-up reminders and a gentle chime at start time
 - **Medication reminders** — full-screen pop-ups with chime at your three configured times
 - **Wellness reminders** — automatic water and movement prompts during the day (toggleable)
@@ -46,8 +46,7 @@ The downloaded display file includes a **built-in settings panel** — no code r
 
 - **About** — display name and zip code
 - **Display theme** — Sage, Warm Gray, or Blush
-- **Care team** — up to 4 caregivers with day and night shift assignments for all 7 days, or toggle on "I care for myself" to collapse the care team fields
-- **Care team schedule** — assign each day's day shift and night shift independently
+- **Care team** — up to 4 caregivers with flexible time blocks for each day of the week, or toggle on "Show default greeting when no one is scheduled" to simplify the display
 - **Medication reminders** — morning, afternoon, and evening times
 - **Daily prompts** — three configurable "For Today" slots, each with an emoji field
 - **Events** — appointments, visits, activities with date, time, emoji, and description; add as many as needed
@@ -71,7 +70,7 @@ Large Print mode was designed for people who wear glasses or are reading from ac
 
 ## Care team scheduler
 
-Enter up to four caregivers by name, then assign each day of the week a day shift and a night shift person. Day shift ends at 7 PM — the night caregiver takes over automatically. If no caregivers are entered, or if "I care for myself" is toggled on, the display shows a warm greeting instead.
+Enter up to four caregivers by name, then set up to two time blocks per day for each day of the week. Each block has a start time, an end time, and the person assigned. The display shows whoever is scheduled right now — and falls back to a warm greeting during any unscheduled time. If no caregivers are entered, the display always shows the default greeting.
 
 ---
 
@@ -80,7 +79,7 @@ Enter up to four caregivers by name, then assign each day of the week a day shif
 Two automatic reminders run in the background during the day:
 
 - **Drink water** — every hour from 11 AM to 5 PM
-- **Move & stretch** — every 2 hours from noon to 6 PM
+- **Move & stretch** — every 2 hours starting at 12:45 PM (fires at 12:45, 3:00, and 5:15 PM)
 
 Both are on by default and can be toggled off individually from the settings panel. Custom timing is available in MemoryLUV Pro.
 
@@ -89,7 +88,7 @@ Both are on by default and can be toggled off individually from the settings pan
 ## How to set it up
 
 **First time:**
-1. Complete the 6-step configurator and click **Download MemoryLUV**
+1. Complete the 5-step configurator and click **Download MemoryLUV**
 2. Save the `.html` file anywhere on your computer
 3. Double-click it to open in Chrome or Edge
 4. Press **F11** (PC) or **⌘ Ctrl F** (Mac) for full screen
@@ -134,7 +133,7 @@ See **Terms of Use** for what's permitted. Personal customization: always welcom
 - **SerenityLUV** — for anxiety management and grounding
 - **MindLUV** — cognitive support and daily structure
 
-Register your purchase to be notified when new products and updates are available.
+More products and updates are coming. Watch this space.
 
 ---
 
