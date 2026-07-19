@@ -70,7 +70,7 @@ These terms are governed by the laws of the State of Maryland, United States.
 ## 10. Contact
 
 For licensing inquiries, institutional use, or permissions beyond the scope of these terms:
-**RMS Omnimedia** · hello@luvworks.co *(update with your actual contact address)*
+**RMS Omnimedia** · hello@memoryluv.com
 
 ---
 
