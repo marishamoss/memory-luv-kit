@@ -114,7 +114,7 @@ When someone is living with memory challenges or recovering from illness, small 
 
 The person doesn't need to ask. They can just look.
 
-This product grew out of one family caregiver's experience building exactly this kind of display for her mother — a year of hospital stays, rehab, and coming home to a room with no way to track the day. What started as a personal solution became something other families deserve to have too.
+This product grew out of one family's practice of care. Years ago, its builder hand-made the first version for her father — days of the week printed out and taped to the wall, pretty fonts, a sleep timer on his smart TV, calming aerial footage. Years later, her mother came home after a year full of hospital stays and rehab, to a room with no way to track the day — so she rebuilt it, digital this time, self-updating. A physical therapist saw it working in her mother's room and said: families need this. What started as one family's way of caring became something other families deserve to have too.
 
 ---
 

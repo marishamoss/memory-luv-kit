@@ -43,31 +43,37 @@ Each purchase grants a single personal-use license for one household. If you are
 
 ---
 
-## 6. No warranty
+## 6. Refunds — 30-day guarantee
+
+If a LUVWORKS product isn't right for your family, contact RMS Omnimedia at the address in Section 11 within 30 days of purchase for a full refund. No questions, no forms, no hassle.
+
+---
+
+## 7. No warranty
 
 LUVWORKS products are provided as-is. RMS Omnimedia makes no warranties, express or implied, regarding fitness for any particular medical, clinical, or therapeutic purpose. These products are orientation and organization aids, not medical devices. Always consult qualified healthcare professionals for medical decisions.
 
 ---
 
-## 7. No technical support
+## 8. No technical support
 
 Basic setup instructions are included with every product. RMS Omnimedia does not provide individual technical support. For customization help beyond the built-in settings panel, we recommend using an AI assistant with your downloaded file.
 
 ---
 
-## 8. Updates and improvements
+## 9. Updates and improvements
 
-Registered users may receive notifications of product updates at RMS Omnimedia's discretion. To be notified of updates, contact RMS Omnimedia at the address listed in Section 10.
+Registered users may receive notifications of product updates at RMS Omnimedia's discretion. To be notified of updates, contact RMS Omnimedia at the address listed in Section 11.
 
 ---
 
-## 9. Governing law
+## 10. Governing law
 
 These terms are governed by the laws of the State of Maryland, United States.
 
 ---
 
-## 10. Contact
+## 11. Contact
 
 For licensing inquiries, institutional use, or permissions beyond the scope of these terms:
 **RMS Omnimedia** · hello@memoryluv.com
