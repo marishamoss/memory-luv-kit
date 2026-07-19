@@ -304,7 +304,7 @@ body.night-mode #mlv-wm{color:rgba(120,120,120,0.2);opacity:.2;}
   </div>
   <div class="cs"><div class="cst">About</div>
     <div class="cf"><label>Display name</label><input id="pn" type="text" placeholder="Mom, Dorothy…"/></div>
-    <div class="cf"><label>ZIP code (weather)</label><input id="pz" type="text" maxlength="5" placeholder="20904"/></div>
+    <div class="cf"><label>ZIP code or city (weather)</label><input id="pz" type="text" placeholder="20904"/></div>
   </div>
   <div class="cs"><div class="cst">Display theme</div>
     <div class="cfg-themes">
@@ -352,7 +352,7 @@ body.night-mode #mlv-wm{color:rgba(120,120,120,0.2);opacity:.2;}
     <button class="cadd" onclick="addEv()">+ Add event</button>
   </div>
   <div class="cs"><div class="cst">Wellness reminders</div>
-    <div style="font-size:10px;color:#7A9BAD;margin-bottom:10px;line-height:1.5;">These reminders pop up automatically throughout the day. Turn either off if they become disruptive. Timing control is available in MemoryLUV Pro.</div>
+    <div style="font-size:10px;color:#7A9BAD;margin-bottom:10px;line-height:1.5;">These reminders pop up automatically throughout the day. Turn either off if they become disruptive.</div>
     <div class="sc-row">
       <label for="rw-chk">💧 &nbsp;Drink water &nbsp;<span style="font-size:9px;color:#7A9BAD;">(every hour, 11 AM–5 PM)</span></label>
       <label class="sc-toggle"><input type="checkbox" id="rw-chk"/><span class="sc-slider"></span></label>
@@ -742,10 +742,10 @@ function render(){
   if(step===1){
     c=`<div class="slabel">Step 1 of ${TOTAL}</div>
     <div class="stitle">About your loved one</div>
-    <div class="sdesc">This personalizes the display. ZIP code pulls live weather automatically every 30 minutes.</div>
+    <div class="sdesc">This personalizes the display. ZIP code or city name pulls live weather automatically every 30 minutes.</div>
     <div class="pill">✦ Built-in settings panel — update anytime, no code needed</div>
     <div class="field"><label>What should the display call them?</label><input type="text" id="fn" value="${ea(data.displayName)}" placeholder="Mom, Dorothy, Grandpa Joe"/><div class="hint">Appears in the caregiver greeting</div></div>
-    <div class="field"><label>Home ZIP code (for weather)</label><input type="text" id="fz" value="${ea(data.zip)}" placeholder="e.g. 20904" maxlength="5"/></div>`;
+    <div class="field"><label>Home ZIP code or city (for weather)</label><input type="text" id="fz" value="${ea(data.zip)}" placeholder="e.g. 20904"/></div>`;
   }
 
   if(step===2){

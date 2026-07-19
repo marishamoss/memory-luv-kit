@@ -13,7 +13,7 @@ At a glance, the display shows:
 
 - **Current time** — large, clear, always updating
 - **Full date** — day of week, month, date, and year, always visible
-- **Live weather** — pulls automatically from your zip code every 30 minutes
+- **Live weather** — pulls automatically from your ZIP code or city every 30 minutes
 - **Today's caregiver** — the right name shows automatically based on your configured schedule for each day. If no one is scheduled or no care team is configured, shows a warm daily greeting instead.
 - **Today's schedule** — upcoming events with full-screen pop-up reminders and a gentle chime at start time
 - **Medication reminders** — full-screen pop-ups with chime at your three configured times
@@ -44,7 +44,7 @@ Hearts use a standard Unicode character (♥) styled with CSS — renders correc
 
 The downloaded display file includes a **built-in settings panel** — no code required, ever. Tap the small **⚙ Settings** button in the bottom-left corner at any time — including while a reminder is on screen — to update:
 
-- **About** — display name and zip code
+- **About** — display name and ZIP code or city
 - **Display theme** — Sage, Warm Gray, or Blush
 - **Care team** — up to 4 caregivers with flexible time blocks for each day of the week, or toggle on "Show default greeting when no one is scheduled" to simplify the display
 - **Medication reminders** — morning, afternoon, and evening times
@@ -81,7 +81,7 @@ Two automatic reminders run in the background during the day:
 - **Drink water** — every hour from 11 AM to 5 PM
 - **Move & stretch** — every 2 hours starting at 12:45 PM (fires at 12:45, 3:00, and 5:15 PM)
 
-Both are on by default and can be toggled off individually from the settings panel. Custom timing is available in MemoryLUV Pro.
+Both are on by default and can be toggled off individually from the settings panel. Custom reminder timing is planned for a future release.
 
 ---
 
@@ -128,7 +128,7 @@ See **Terms of Use** for what's permitted. Personal customization: always welcom
 
 ## Coming soon
 
-- **MemoryLUV Pro** — custom reminder intervals, liturgical calendar, fourth medication time, color theme editor
+- **More customization** — custom reminder timing, recurring events, additional themes, and multilingual support are on the roadmap
 - **AttentionLUV** — for people with ADHD or attention challenges
 - **SerenityLUV** — for anxiety management and grounding
 - **MindLUV** — cognitive support and daily structure
